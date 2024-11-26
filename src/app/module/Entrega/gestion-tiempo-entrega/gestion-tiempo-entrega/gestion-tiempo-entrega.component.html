@@ -1,0 +1,136 @@
+<main id="content2" class="main mb-4">
+  <app-loader *ngIf="!flagNoData"></app-loader>
+  <div class="" *ngIf="flagNoData">
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <button class="btn-container" (click)="toogleState()">
+            <img
+              class="btn-ico"
+              src="./assets/img/icon/ico-pdf.png"
+              alt="icono pdf"
+            />
+          </button>
+
+          <h3>Gestión Tiempo de Planificación Anual de Auditoría</h3>
+        </div>
+
+        <div class="head">
+          <div class="form-group col-4">
+            <label for="year3" class="form-label">Año</label>
+            <select
+              id="year3"
+              name="year"
+              class="select form-select"
+              [(ngModel)]="currentYear"
+              [ngModelOptions]="{ standalone: true }"
+              (change)="change_Year()"
+            >
+              <option *ngFor="let year of years">{{ year }}</option>
+            </select>
+          </div>
+          <div class="form-group col-5">
+            <label for="auditor" class="form-label"
+              ><strong>Buscador Auditor </strong></label
+            >
+            <!--  -->
+            <select
+              id="auditor"
+              class="select form-select"
+              [(ngModel)]="searchAuditor"
+              [ngModelOptions]="{ standalone: true }"
+              (change)="searchPlanificacionAuditor()"
+            >
+              <option [value]="0">Todos</option>
+              <option
+                *ngFor="let auditor of auditores"
+                [value]="auditor.id_auditor_responsable"
+              >
+                {{ auditor.nombre }} {{ auditor.apellido }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr class="row row-center filtros"></tr>
+          </thead>
+
+          <thead>
+            <tr>
+              <th>Proceso</th>
+              <th>Auditor</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Culminación</th>
+              <th>Diferencia Estimada</th>
+              <th>Fecha Culminación Real</th>
+              <th>Diferencia Real</th>
+              <th>Desviación Estandar</th>
+              <th>Estado de Segumiento</th>
+            </tr>
+          </thead>
+
+          <tr *ngFor="let result of resultsAll">
+            <td class="text-s">
+              {{ result.subproceso.proceso.nombre_proceso }}
+            </td>
+            <td>
+              {{ result.auditorResponsable.nombre }}
+              {{ result.auditorResponsable.apellido }}
+            </td>
+            <td>{{ result.fecha_inicio | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td>{{ result.fecha_culminacion | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td>
+              {{
+                result.fecha_inicio | diferenciaFecha : result.fecha_culminacion
+              }}
+            </td>
+
+            <td>
+              {{ result.fecha_avalado | fechaNormal : "DD/MM/YYYY" }}
+            </td>
+
+            <td class="center">
+              {{ result.fecha_inicio | diferenciaFecha : result.fecha_avalado }}
+            </td>
+
+            <td>
+              {{
+                result.fecha_culminacion
+                  | diferenciaFecha : result.fecha_avalado
+              }}
+            </td>
+
+            <td>
+              <div class="head">
+                <div [ngClass]="getClasses(result)">
+                  <div class="powersign"></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div></div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- <main id="content2" class="main mb-4">
+  <div class="table-data">
+    <div class="haed">
+      <h3>Resumen Ejecucion Planificación Anual de Auditoría</h3>
+    </div>
+
+    <div class="content-grafics">
+      <canvas id="myChart"></canvas>
+
+      <canvas (click)="change_Year()" id="myChart2"></canvas>
+    </div>
+  </div>
+</main> -->
+
+<app-generar-tiempo-entrega
+  *ngIf="flagReporte"
+  [(flagReporte)]="flagReporte"
+></app-generar-tiempo-entrega>

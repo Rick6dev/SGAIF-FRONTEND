@@ -1,0 +1,62 @@
+<div class="container-card">
+  <div class="card">
+    <p class="cookieHeading">Reporte Generado</p>
+    <p class="cookieDescription">
+      Usuario el reporte fue generado correctamente
+    </p>
+    <div class="buttonContainer">
+      <button class="acceptButton excel" (click)="generarExcel()">Excel</button>
+      <button class="acceptButton pdf" (click)="imprimirTabla()">Pdf</button>
+      <button class="declineButton" type="button" (click)="ocultar()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<main id="content2" #content class="main mb-4">
+  <div class="">
+    <div class="table-data">
+      <div class="order" id="tabla">
+        <h3>Gestión Planificación Anual de Auditoría</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Macroproceso</th>
+              <th>Proceso</th>
+              <th>Subproceso</th>
+              <!-- <!-- <th>Auditor Secundario</th> -->
+              <th>Auditor Responsable</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Culminación</th>
+              <th>Cantidad Sub</th>
+            </tr>
+          </thead>
+
+          <tr *ngFor="let result of results">
+            <td>
+              {{ result.subproceso.proceso.macroproceso.nombre_macroproceso }}
+            </td>
+
+            <td>{{ result.subproceso.proceso.nombre_proceso }}</td>
+            <td class="text-s">{{ result.subproceso.nombre_subproceso }}</td>
+
+            <td>
+              {{ result.auditorResponsable.nombre }}
+              {{ result.auditorResponsable.apellido }}
+            </td>
+            <!-- <td *ngIf="result.auditorSecundario.nombre !=null">{{result.auditorSecundario.nombre}} {{result.auditorSecundario.apellido}}</td> -->
+            <!-- <td *ngIf="result.auditorTerciario.nombre !=null" >{{result.auditorTerciario.nombre}} {{result.auditorTerciario.apellido}}</td> -->
+            <td>{{ result.fecha_inicio | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td>{{ result.fecha_culminacion | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td class="center">{{ result.cantidad_subprocesos }}</td>
+          </tr>
+        </table>
+
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class=""></div>
+</main>

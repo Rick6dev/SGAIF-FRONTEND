@@ -1,0 +1,307 @@
+<app-loader *ngIf="results === null"></app-loader>
+
+<main id="content2" class="main" *ngIf="results != null">
+  <div class="">
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Informes de Auditoría</h3>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col" colspan="8">
+                <div class="row row-center">
+                  <div class="col-md-3 form-group">
+                    <label class="form-label" for="yearInf"
+                      ><strong>Año</strong></label
+                    >
+                    <select
+                      class="select form-select"
+                      [(ngModel)]="yearInf"
+                      [ngModelOptions]="{ standalone: true }"
+                      (change)="change_Year(yearInf)"
+                      id="yearInf"
+                    >
+                      <option *ngFor="let year of years">{{ year }}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-3 form-group">
+                    <label class="form-label" for="areaTrabajo"
+                      ><strong>Área Trabajo</strong></label
+                    >
+                    <select
+                      class="select form-select"
+                      [(ngModel)]="areaTrabajo"
+                      [ngModelOptions]="{ standalone: true }"
+                      (change)="filterArea(areaTrabajo)"
+                      id="areaTrabajo"
+                    >
+                      <option value="0" selected>Todos</option>
+                      <option value="1">GAT</option>
+                      <option value="2">GAOF</option>
+                    </select>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th>Código Informe</th>
+              <th>Título Informe</th>
+              <th>Tipo de Auditoría</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+
+          <tr *ngFor="let result of results">
+            <th scope="row" class="cod">{{ result.cod_informe }}</th>
+            <td>
+              {{ result.nombre_informe }}
+              <span class="trimestre">({{ result.trimestre }})</span>
+            </td>
+            <!-- <td>{{result.trimestre}}</td> -->
+            <td>{{ result.tipo_auditorium.cod_tipo_auditoria }}</td>
+
+            <td>
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="wrapper"
+                  (click)="setActiveItem(result.id_informe_auditoria)"
+                >
+                  <input
+                    type="checkbox"
+                    class="hidden-trigger"
+                    id="{{ result.id_informe_auditoria }}"
+                    [ngClass]="{
+                      checked: checkedItem === result.id_informe_auditoria
+                    }"
+                    class="hidden-trigger"
+                    (click)="setActiveItem(result.id_informe_auditoria)"
+                  />
+                  <label for="{{ result.id_informe_auditoria }}" class="circle">
+                    <svg
+                      class="svg"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="48"
+                      height="48"
+                      xml:space="preserve"
+                      version="1.1"
+                      viewBox="0 0 48 48"
+                    >
+                      <image
+                        width="48"
+                        height="48"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC"
+                      ></image>
+                    </svg>
+                  </label>
+                  <div class="subs">
+                    <button
+                      type="button"
+                      class="sub-circle"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      *ngIf="
+                        result.estatus_Plan_Accion !== 'Cerrado' &&
+                        user.role === 1
+                      "
+                      (click)="extraerInforme(result.id_informe_auditoria)"
+                    >
+                      <!-- &&
+                        result.created_year == currentYear -->
+                      <img
+                        class="ico-btn"
+                        src="./assets/img/icon/ico-eliminar.png"
+                        alt=""
+                      />
+                      <div class="container-img"></div>
+                      <div class="info">Eliminar</div>
+                    </button>
+
+                    <button
+                      *ngIf="
+                        result.id_gerencia_encargada === edit || user.role === 1
+                      "
+                      type="button"
+                      class="sub-circle"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal7"
+                    >
+                      <div class="container-img">
+                        <img
+                          class="ico-btn"
+                          src="/assets/img/icon/ico-editar.png"
+                          alt=""
+                          (click)="
+                            extraerCodigoInforme(
+                              result.cod_informe,
+                              result.fecha_creacion
+                            )
+                          "
+                        />
+                      </div>
+
+                      <div class="info">Editar</div>
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-circle"
+                      (click)="mostrarhllz()"
+                    >
+                      <div class="container-img">
+                        <img
+                          class="ico-btn"
+                          src="/assets/img/icon/ico-OneHllz.png"
+                          alt=""
+                        />
+                      </div>
+
+                      <div class="info">Visualizar</div>
+                    </button>
+
+                    <button
+                      [routerLink]="[
+                        '/register/FormHallazgo/',
+                        result.cod_informe
+                      ]"
+                      class="sub-circle"
+                      *ngIf="
+                        result.id_gerencia_encargada === edit || user.role === 1
+                      "
+                    >
+                      <!-- result.created_year == currentYear -->
+                      <div class="container-img">
+                        <img
+                          class="ico-btn"
+                          src="./assets/img/icon/ico-hallazgo.png"
+                          alt=""
+                        />
+                      </div>
+                      <div class="info">Registrar</div>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="sub-circle"
+                      data-bs-toggle="modal"
+                      data-bs-target="#example99"
+                      *ngIf="
+                        user.role === 4 && result.created_year == currentYear
+                      "
+                      (click)="extraerInformeAll(result)"
+                    >
+                      <div class="container-img">
+                        <img
+                          class="ico-btn"
+                          src="./assets/img/icon/ico-req.png"
+                          alt=""
+                        />
+                      </div>
+                      <div class="info">Requerimiento</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <ul class="pagination">
+            <li class="list" *ngFor="let pages of nrmPaginas">
+              <button
+                class="pushable"
+                (click)="getInforme(pages + 1, yearInf)"
+                *ngIf="pagina !== pages + 1"
+              >
+                <span class="shadow"></span>
+                <span class="edge"></span>
+                <span class="front">
+                  {{ pages + 1 }}
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<app-list-onehallazgo
+  *ngIf="ishllz"
+  [resultshllz]="resultshllz"
+  [id_informe_auditoria]="id_informe_auditoria"
+  [flagNodata]="flagNodata"
+  [(ishllz)]="ishllz"
+></app-list-onehallazgo>
+<app-paginacion
+  [nrmPaginas]="nrmPaginas"
+  [elemento]="flagHallazgo"
+></app-paginacion>
+<app-modal-borrar
+  [pagina]="pagina"
+  [yearInf]="yearInf"
+  [areaTrabajo]="areaTrabajo"
+  [id_element]="id_informe_auditoria"
+  [isHllz]="isHllz"
+  [results]="results"
+  (datosEliminados)="results = $event"
+></app-modal-borrar>
+
+<div
+  class="modal fade"
+  id="exampleModal7"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form
+          class="form"
+          method="post"
+          id="FormTipoAuditoria"
+          name="FormTipoAuditoria"
+        >
+          <div class="header">Actualizar Nombre Informe</div>
+          <div class="inputs">
+            <label for="nombre_informe" class="col-md-6 form-group mb-2"
+              ><strong>Nombre del Informe </strong></label
+            >
+            <input
+              type="text"
+              value=""
+              id="nombre_informe"
+              placeholder="Ingresa el Nombre "
+              name="nombre_informe"
+              [(ngModel)]="updateInforme.nombre_informe"
+              autofocus
+              class="input"
+            />
+            <div class="row">
+              <div class="col-md-12 form-group mb-4">
+                <button
+                  type="submit"
+                  (click)="actualizarInforme()"
+                  class="submit relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 text-white hover:ring-2 hover:ring-offset-2 hover:ring-blue-400 transition-all ease-out duration-300"
+                >
+                  <span
+                    class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"
+                  ></span>
+                  <span class="relative text-button">Actualizar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-form-requerimiento></app-form-requerimiento>

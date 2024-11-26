@@ -1,0 +1,182 @@
+<div ngClass="modal fade :ismodal"  id="panificacionsingle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-9">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header modal-dark "  >
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  
+  
+            <div class="container-title">
+             <h1  class="modal-title fw-semibold  mt-auto fs-4" id="exampleModalToggleLabel" >
+                  {{data.subproceso.proceso.nombre_proceso}} </h1>
+            </div>
+        </div>
+        <div class="modal-body modal-dark">
+        <div class="row mt-4">
+            <div class="col-md-4 col-lg-4  form-group ">
+              <h4 class="subtitulo-modal2">Macroproceso</h4>
+              <p class="text-modal">{{data.subproceso.proceso.macroproceso.nombre_macroproceso}} </p>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 form-group ">
+              <h4 class="subtitulo-modal2">Proceso</h4>
+              <p class="text-modal"  >{{data.subproceso.proceso.nombre_proceso}}</p>
+            </div>
+            <div class=" col-sm-12 col-md-4 col-lg-4 form-group ">
+              <h4 class="subtitulo-modal2">Subproceso</h4>
+              <p class="text-modal" *ngIf="data.subproceso.nombre_subproceso" >{{data.subproceso.nombre_subproceso}}</p>
+            </div>
+            <div class="col-md-4 col-lg-4 form-group ">
+         
+            </div>
+          </div>
+
+
+
+          <div class="row mt-4">
+            <div class="col-md-4 col-lg-4  form-group ">
+              <h4 class="subtitulo-modal2">Tipo de Proceso</h4>
+              <p class="text-modal">{{data.subproceso.proceso.tipo_proceso.nombre_tipo_proceso}} </p>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 form-group ">
+              <h4 class="subtitulo-modal2">Gerencia Encargada</h4>
+              <p class="text-modal"  *ngIf="data.id_gerencia_encargada===2" >GAOF</p>
+              <p class="text-modal"  *ngIf="data.id_gerencia_encargada===1" >GAT</p>
+            </div>
+            <div class=" col-sm-12 col-md-4 col-lg-4 form-group ">
+              <h4 class="subtitulo-modal2">Cantidad de Procesos</h4>
+              <p class="text-modal" >{{data.cantidad_subprocesos}}</p>
+            </div>
+            <div class="col-md-4 col-lg-4 form-group ">
+         
+            </div>
+          </div>
+
+          <div class="row mt-4 flex justify-center">
+            <div class="col-md-4 col-lg-4  form-group flex justify-center ">
+              <h4 class="subtitulo-modal2">Fecha Inicio</h4>
+              <p class="text-modal">{{data.fecha_inicio | fechaNormal:'' }} </p>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 form-group ">
+              <h4 class="subtitulo-modal2">Fecha Culminación</h4>
+              <p class="text-modal"  >{{data.fecha_culminacion | fechaNormal:'' }}</p>
+            </div>
+          
+            <div class="col-md-4 col-lg-4 form-group " *ngIf="data.fecha_finalizado">
+              <h4 class="subtitulo-modal2">Fecha Culminación</h4>
+              <p class="text-modal"  >{{data.fecha_finalizado | fechaNormal:'' }}</p>
+             
+            </div>
+          </div>
+          <div class="row ">
+            <div class=" col-sm-12 col-md-4 col-lg-4 form-group ">
+                <h4 class="subtitulo-modal2 ubt">Aplicativos</h4>
+            </div>
+
+          </div>
+          <div class="row container-boxes">
+            
+            <div class="customCheckBoxHolder">
+
+                <input class="customCheckBoxInput" [ngModel]="data.flagAS400" disabled="true" id="cCB1" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB1">
+                    <div class="customCheckBox">
+                        <div class="inner">AS400</div>
+                    </div>
+                </label>
+            
+                <input class="customCheckBoxInput" id="cCB2" [ngModel]="data.flagSAP" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB2">
+                    <div class="customCheckBox">
+                        <div class="inner">SAP</div>
+                    </div>
+                </label>
+            
+                <input class="customCheckBoxInput" id="cCB3" [ngModel]="data.flagIST73" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB3">
+                    <div class="customCheckBox">
+                        <div class="inner">IST73</div>
+                    </div>
+                </label>
+
+                <input class="customCheckBoxInput" id="cCB4" [ngModel]="data.flagIST77" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB4">
+                    <div class="customCheckBox">
+                        <div class="inner">IST77</div>
+                    </div>
+                </label>
+
+
+                <input class="customCheckBoxInput" id="cCB5" [ngModel]="data.flagISTCLEAR" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB5">
+                    <div class="customCheckBox">
+                        <div class="inner">ISTCLEAR</div>
+                    </div>
+                </label>
+
+
+                <input class="customCheckBoxInput" id="cCB6" [ngModel]="data.flagNAIGUATA" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB6">
+                    <div class="customCheckBox">
+                        <div class="inner">NAIGUATA</div>
+                    </div>
+                </label>
+
+                <input class="customCheckBoxInput" id="cCB7" [ngModel]="data.flagDA" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB7">
+                    <div class="customCheckBox">
+                        <div class="inner">DA</div>
+                    </div>
+                </label>
+
+                <input class="customCheckBoxInput" id="cCB9" [ngModel]="data.flagFULL" disabled="true" type="checkbox">
+                <label class="customCheckBoxWrapper" for="cCB9">
+                    <div class="customCheckBox">
+                        <div class="inner">FULL</div>
+                    </div>
+                </label>
+
+
+         
+            
+            </div>
+          </div>
+
+
+          
+          <div class="row mt-5" *ngIf="comentarios">
+            <h3 class="subtitulo-modal2 ubt subtitulo-comentario">Comentarios</h3>
+            <div class="row m-auto mt-3 " *ngFor="let comentario of comentarios">
+              <li class="list-group-item" >
+                <p> <span>{{comentario.fechaComentario}}: {{comentario.comentario}} ({{comentario.usuario.nombre}} {{comentario.usuario.apellido}})</span></p>
+              </li> 
+            </div>
+            
+      
+
+          </div>
+               
+                </div>
+
+      
+        <div class="modal-footer modal-dark">
+          <div class="col-md-4 form-group mb-3 " >
+            <h4 class="subtitulo-modal2">Auditor Responsable</h4>
+            <p class="text-modal capitalize"   >{{data.auditorResponsable.nombre}} {{data.auditorResponsable.apellido}}</p>
+          </div>
+          <div class="col-md-4 form-group mb-3" >
+            <div >
+              <h4 class="subtitulo-modal2">Auditor Secundario</h4>
+              <p class="text-modal capitalize"   >{{data.auditorSecundario.nombre}} {{data.auditorSecundario.apellido}}</p>
+            </div>
+          </div>
+          <div  class="col-md-3 form-group mb-3">
+            <div   >
+              <h4 class="subtitulo-modal2">Auditor Terciario</h4>
+              <p class="text-modal capitalize"   >{{data.auditorTerciario.nombre}} {{data.auditorTerciario.apellido}}</p>
+          </div>
+          </div>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+  

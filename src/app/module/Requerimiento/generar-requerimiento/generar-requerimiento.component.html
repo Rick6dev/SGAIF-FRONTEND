@@ -1,0 +1,81 @@
+<div class="container-card">
+  <div class="card">
+    <p class="cookieHeading">Reporte Generado</p>
+    <p class="cookieDescription">
+      Usuario el reporte fue generado correctamente
+    </p>
+    <div class="buttonContainer">
+      <button class="acceptButton excel" (click)="generarExcel()">Excel</button>
+      <button class="acceptButton pdf" (click)="imprimirTabla()">Pdf</button>
+      <button class="declineButton" type="button" (click)="ocultar()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<main id="content2" #content class="main mb-4">
+  <div class="">
+    <div class="table-data">
+      <div class="order" id="tabla">
+        <h3>Gestión Planificación Anual de Auditoría</h3>
+        <table>
+          <thead>
+            <tr>
+              <th colspan="3">Código Informe</th>
+              <th>Auditor</th>
+              <th>Fecha Solicitud</th>
+              <th>Fecha Devolución</th>
+              <th>Fecha Culminación</th>
+              <th>Funcional</th>
+              <th>Detalle Requerimiento</th>
+
+              <th>Estatus</th>
+              <th>N° Devoluciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of requerimientos">
+              <th scope="row" class="cod" colspan="3">
+                {{ result.informe_auditorium.cod_informe }}
+              </th>
+              <th scope="row" class="cod">
+                {{ result.usuario.nombre }} {{ result.usuario.apellido }}
+              </th>
+              <th>{{ result.fecha_solicitud }}</th>
+              <th>
+                <p *ngIf="result.fecha_devolucion">
+                  {{ result.fecha_devolucion }}
+                </p>
+                <p *ngIf="!result.fecha_devolucion">No Requerida</p>
+              </th>
+
+              <th>
+                <p *ngIf="result.fecha_culminacion">
+                  {{ result.fecha_culminacion }}
+                </p>
+                <p *ngIf="!result.fecha_culminacion">No Emitida</p>
+              </th>
+              <th>
+                {{ result.nombre_responsable }}
+                {{ result.apellido_responsable }}
+              </th>
+              <th>
+                {{ result.detalle_requerimiento }}
+              </th>
+              <th>
+                {{ result.estado_requirimiento.nombre_estado_requerimiento }}
+              </th>
+
+              <th>{{ result.cantidad_devoluciones }}</th>
+            </tr>
+          </tbody>
+        </table>
+
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class=""></div>
+</main>

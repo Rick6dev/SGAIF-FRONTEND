@@ -1,0 +1,123 @@
+<div
+  ngClass="modal fade :ismodal"
+  id="exampleModalToggle2"
+  aria-hidden="true"
+  aria-labelledby="exampleModalToggleLabel"
+  tabindex="-9"
+>
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header modal-dark">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+
+        <div class="container-title">
+          <h1
+            *ngIf="hllz && hllz.informe_auditorium"
+            class="modal-title fw-semibold mt-auto fs-4"
+            id="exampleModalToggleLabel"
+          >
+            {{ hllz.informe_auditorium.nombre_informe }}
+            <p>
+              <span class="cod2">{{
+                hllz.informe_auditorium.cod_informe
+              }}</span>
+            </p>
+          </h1>
+        </div>
+      </div>
+      <div class="modal-body modal-dark">
+        <div class="row">
+          <div class="col-md-4 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Fecha Detección</h4>
+            <p class="text-modal">{{ hllz.fecha_creacion | fechaFormat }}</p>
+          </div>
+          <div class="col-md-2 col-lg-2 form-group">
+            <h4 class="subtitulo-modal2">Nivel Riesgo</h4>
+            <p class="text-modal" *ngIf="hllz && hllz.nivel_riesgo">
+              {{ hllz.nivel_riesgo.nombre_nivel_riesgo }}
+            </p>
+          </div>
+          <div class="col-md-2 col-lg-2 form-group">
+            <h4 class="subtitulo-modal2">Riesgo Asociado</h4>
+            <p class="text-modal" *ngIf="hllz && hllz.nivel_riesgo">
+              {{ hllz.riesgo_asociado.nombre_riesgo_asociado }}
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-4 form-group">
+            <h4 class="subtitulo-modal">Estatus Plan Acción</h4>
+            <div
+              class="progress"
+              role="progressbar"
+              aria-label="Basic example"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-ink"
+                [style.width]="estatus"
+              >
+                {{ estatus }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2 class="modal-title2 mt-2">Hallazgo reportado</h2>
+        <p class="text-modal-dot">{{ hllz.hallazgo_reportado }}</p>
+        <h2 class="modal-title2">Recomendación</h2>
+        <p class="text-justify text-modal-dot" *ngIf="hllz.recomendacion">
+          {{ hllz.recomendacion }}
+        </p>
+        <p class="text-justify text-modal-dot" *ngIf="!hllz.recomendacion">
+          Sin Recomendación
+        </p>
+        <div class="sect">
+          <h2 class="modal-title2">Acción Correctiva</h2>
+          <p class="text-justify text-modal-dot">
+            {{ hllz.accion_correctiva }}
+          </p>
+          <!-- <button class="btn btn-info" (click)="buscarComentarios()" >Mostrar Comentarios</button> -->
+          <h2 class="modal-title2" *ngIf="coments">Comentarios</h2>
+          <ul class="list-group" *ngFor="let coment of coments">
+            <app-list-coment [coment]="coment"></app-list-coment>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer modal-dark">
+        <div class="col-md-3 form-group mb-3 grc">
+          <h4 class="subtitulo-modal2">Gerencia Responsable</h4>
+          <p class="text-modal capitalize" *ngIf="hllz && hllz.nivel_riesgo">
+            {{ gerencia.gerencia_historico }}
+          </p>
+        </div>
+        <div class="col-md-2 form-group mb-3">
+          <div *ngIf="hllz.fecha_compromiso">
+            <h4 class="subtitulo-modal2">Fecha Compromiso</h4>
+            <p class="text-modal">{{ hllz.fecha_compromiso | fechaFormat2 }}</p>
+          </div>
+        </div>
+        <div class="col-md-2 form-group mb-3">
+          <div>
+            <h4 class="subtitulo-modal2">Fecha de Cierre</h4>
+            <p class="text-modal" *ngIf="hllz.fecha_cierre">
+              {{ hllz.fecha_cierre | fechaFormat2 }}
+            </p>
+            <p class="text-modal" *ngIf="!hllz.fecha_cierre">Sin Fecha</p>
+          </div>
+        </div>
+        <div class="col-md-3 form-group mb-3">
+          <h4 class="subtitulo-modal2">Auditor Responsable</h4>
+          <p class="text-modal capitalize" *ngIf="hllz && hllz.nivel_riesgo">
+            {{ hllz.usuario?.nombre | capitalize }}
+            {{ hllz.usuario?.apellido | capitalize }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

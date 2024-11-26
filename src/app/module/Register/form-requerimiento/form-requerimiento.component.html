@@ -1,0 +1,178 @@
+<div>
+  <div
+    ngClass="modal fade :ismodal"
+    id="example99"
+    aria-hidden="true"
+    aria-labelledby="example99"
+    tabindex="-99"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h1 class="modal-title fs-5" id="exampleModalToggleLabel2"> {{hllz.estatus_Plan_Accion}} {{hllz.hallazgo_reportado}} </h1> -->
+          <h3>Registrar Requerimiento</h3>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form
+            class="mb-1"
+            name="contactForm"
+            method="post"
+            [formGroup]="forma"
+            name="requerimietoForm"
+          >
+            <div class="row">
+              <div class="col-md-4 form-group mb-1">
+                <label for="Vpe" class="form-label"
+                  ><strong>Vice-presidencia Ejecutiva</strong></label
+                >
+                <select
+                  id="Vpe"
+                  [(ngModel)]="id_Vpe"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="select form-select"
+                  (change)="getVP(id_Vpe)"
+                  [class.is-valid]="getGerenciaResponsableValido()"
+                  [class.is-invalid]="getGerenciaResponsableNoValido()"
+                >
+                  <option value="" selected>
+                    Selecciona una Vice-presidencia Ejecutiva Responsable
+                  </option>
+                  <option *ngFor="let VPE of VPEs" value="{{ VPE.id_vpe }}">
+                    {{ VPE.nombre_vpe | capitalize }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group mb-1" *ngIf="id_Vpe != 0">
+                <label for="VP" class="form-label"
+                  ><strong>Vice-presidencia</strong></label
+                >
+                <select
+                  id="VP"
+                  class="select form-select"
+                  [(ngModel)]="id_vp"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="getGrc(id_vp)"
+                  [class.is-valid]="getGerenciaResponsableValido()"
+                  [class.is-invalid]="getGerenciaResponsableNoValido()"
+                >
+                  <option value="" selected>
+                    Selecciona una Vice-presidencia Responsable
+                  </option>
+                  <option *ngFor="let Vp of VPs" value="{{ Vp.id_vp }}">
+                    {{ Vp.nombre_vp | capitalize }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group mb-1" *ngIf="flagGrc">
+                <label for="grc" class="form-label"
+                  ><strong>Gerencia</strong></label
+                >
+                <select
+                  id="grc"
+                  class="select form-select"
+                  formControlName="id_gerencia_responsable"
+                  [class.is-valid]="getGerenciaResponsableValido()"
+                  [class.is-invalid]="getGerenciaResponsableNoValido()"
+                >
+                  <option value="" selected>
+                    Selecciona una Gerencia Responsable
+                  </option>
+                  <option
+                    *ngFor="let Grc of Grcs"
+                    value="{{ Grc.id_gerencia }}"
+                  >
+                    {{ Grc.nombre_gerencia | capitalize }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4 form-group">
+                <div class="mb-1">
+                  <label for="noapellido_funcional" class="form-label"
+                    ><strong>Nombre del Funcional</strong></label
+                  >
+                  <input
+                    name="noapellido_funcional"
+                    id="noapellido_funcional"
+                    rows="4"
+                    class="form-control"
+                    formControlName="nombre_responsable"
+                    [class.is-valid]="getNombreValido()"
+                    [class.is-invalid]="getNombreNoValido()"
+                  />
+                  <!-- <small *ngIf="accionCorrectivaNoValido" class="text-danger"
+                            >La Recomendación debe tener un min de 50 caracteres y un
+                            max 1200</small -->
+                </div>
+              </div>
+              <div class="col-md-4 form-group">
+                <div class="mb-1">
+                  <label for="apellido_funcional" class="form-label"
+                    ><strong>Apellido del Funcional</strong></label
+                  >
+                  <input
+                    name="apellido_funcional"
+                    id="apellido_funcional"
+                    rows="4"
+                    class="form-control"
+                    formControlName="apellido_responsable"
+                    [class.is-invalid]="getApellidoNoValido()"
+                    [class.is-valid]="getApellidoValido()"
+                  />
+                  <!-- <small *ngIf="accionCorrectivaNoValido" class="text-danger"
+                            >La Recomendación debe tener un min de 50 caracteres y un
+                            max 1200</small -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-12 form-group">
+                <div class="mb-1">
+                  <label for="detalle_requerimiento" class="form-label"
+                    ><strong>Requerimiento</strong></label
+                  >
+                  <textarea
+                    name="detalle_requerimiento"
+                    id="detalle_requerimiento"
+                    rows="4"
+                    class="form-control textarea"
+                    formControlName="detalle_requerimiento"
+                    [class.is-invalid]="getRequerimientoNoValido()"
+                    [class.is-valid]="getRequerimientoValido()"
+                  ></textarea>
+                  <!-- <small *ngIf="accionCorrectivaNoValido" class="text-danger"
+                        >La Recomendación debe tener un min de 50 caracteres y un
+                        max 1200</small -->
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="col-md-6 form-group m-auto">
+            <button
+              type="submit"
+              class="btn btn-success"
+              (click)="validarActualizacion()"
+            >
+              Registrar
+            </button>
+          </div>
+          <div class="col-md-4 form-group m-auto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

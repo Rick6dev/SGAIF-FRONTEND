@@ -1,0 +1,220 @@
+<main id="content2" class="main mb-4">
+  <div class="">
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <button class="btn-container" (click)="generarPDF()">
+            <img class="btn-ico" src="./assets/img/icon/ico-pdf.png" />
+          </button>
+
+          <h3>Gestión Planificación Anual de Auditoría</h3>
+        </div>
+
+        <div class="head">
+          <div class="col-md-4 form-group">
+            <label for="status" class="form-label"
+              ><strong>Buscador de Estado de Planificación</strong></label
+            >
+            <select
+              id="status"
+              class="select form-select"
+              [(ngModel)]="searchTerm.searchPlanificacion"
+              (change)="searchPlanificacion(searchTerm.searchPlanificacion)"
+            >
+              <option value="">Todos</option>
+
+              <option *ngFor="let estatu of filtersStatus">{{ estatu }}</option>
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="auditor" class="form-label"
+              ><strong>Buscador Auditor </strong></label
+            >
+            <select
+              id="auditor"
+              class="select form-select"
+              [(ngModel)]="searchTerm.searchAuditor"
+              (change)="searchPlanificacionAuditor()"
+            >
+              <option [value]="0">Todos</option>
+              <option
+                *ngFor="let auditor of auditores"
+                [value]="auditor.id_auditor_responsable"
+              >
+                {{ auditor.nombre }} {{ auditor.apellido }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label for="years" class="form-label"><strong>Año</strong></label>
+            <select
+              id="years"
+              class="select form-select"
+              [(ngModel)]="searchTerm.searchYear"
+              (change)="searchPlanificacionYear()"
+            >
+              <option *ngFor="let year of years">{{ year }}</option>
+            </select>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th scope="col" colspan="8"></th>
+            </tr>
+          </thead>
+
+          <thead>
+            <tr>
+              <th>Macroproceso</th>
+              <th>Proceso</th>
+              <th>Subproceso</th>
+              <!-- <!-- <th>Auditor Secundario</th> -->
+              <th>Auditor Responsable</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Culminación</th>
+              <th>Cantidad Sub</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+
+          <tr *ngFor="let result of results">
+            <td>
+              {{ result.subproceso.proceso.macroproceso.nombre_macroproceso }}
+            </td>
+
+            <td>{{ result.subproceso.proceso.nombre_proceso }}</td>
+            <td class="text-s">{{ result.subproceso.nombre_subproceso }}</td>
+
+            <td>
+              {{ result.auditorResponsable.nombre }}
+              {{ result.auditorResponsable.apellido }}
+            </td>
+            <!-- <td *ngIf="result.auditorSecundario.nombre !=null">{{result.auditorSecundario.nombre}} {{result.auditorSecundario.apellido}}</td> -->
+            <!-- <td *ngIf="result.auditorTerciario.nombre !=null" >{{result.auditorTerciario.nombre}} {{result.auditorTerciario.apellido}}</td> -->
+            <td>{{ result.fecha_inicio | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td>{{ result.fecha_culminacion | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td class="center">{{ result.cantidad_subprocesos }}</td>
+
+            <td>
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="wrapper"
+                  (click)="setActiveItem(result.id_planificacion_auditoria)"
+                >
+                  <input
+                    type="checkbox"
+                    class="hidden-trigger"
+                    id="{{ result.id_planificacion_auditoria }}"
+                    [ngClass]="{
+                      checked: checkedItem === result.id_planificacion_auditoria
+                    }"
+                    class="hidden-trigger"
+                    (click)="setActiveItem(result.id_hallazgo)"
+                  />
+                  <label
+                    for="{{ result.id_planificacion_auditoria }}"
+                    class="circle"
+                  >
+                    <svg
+                      class="svg"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="48"
+                      height="48"
+                      xml:space="preserve"
+                      version="1.1"
+                      viewBox="0 0 48 48"
+                    >
+                      <image
+                        width="48"
+                        height="48"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC"
+                      ></image>
+                    </svg>
+                  </label>
+                  <div class="subs">
+                    <button
+                      class="btn sub-circle"
+                      (click)="seguimiento(result)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#panificacionsingle"
+                    >
+                      <img
+                        class="ico-btn"
+                        src="./assets/img/icon/ico-info.png"
+                        alt=""
+                      />
+                      <div class="info">Detalle</div>
+                    </button>
+
+                    <button
+                      class="btn sub-circle"
+                      *ngIf="
+                        (result.id_gerencia_encargada === edit &&
+                          user.role === 2) ||
+                        user.role == 1
+                      "
+                      (click)="editar(result)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#panificacionedit"
+                    >
+                      <img
+                        class=" "
+                        src="./assets/img/icon/ico-segu.png"
+                        alt=""
+                      />
+                      <div class="info">Seguimiento</div>
+                    </button>
+
+                    <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
+                    <button
+                      *ngIf="user.role == 1"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      (click)="deletePlanificacion(result)"
+                      class="btn sub-circle"
+                    >
+                      <img
+                        class="ico-btn"
+                        src="./assets/img/icon/ico-eliminar.png"
+                        alt=""
+                      />
+                      <div class="info">Eliminar</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class=""></div>
+</main>
+
+<app-modal-eliminar-planificacion
+  [data]="data"
+  (datosEliminados)="results = $event"
+></app-modal-eliminar-planificacion>
+<app-modal-planificacion
+  [data]="data"
+  [comentarios]="comentarios"
+></app-modal-planificacion>
+
+<app-form-edit-planificacion
+  [data]="data"
+  (datosEliminados)="results = $event"
+></app-form-edit-planificacion>
+
+<app-generar-planificacion
+  *ngIf="flagReporte"
+  [(flagReporte)]="flagReporte"
+></app-generar-planificacion>

@@ -1,0 +1,84 @@
+.button {
+  gap: 1.2em;
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 10%;
+    height: 30px;
+    text-align: center;
+    padding: 0.6em 2em;
+    border: #0E0B16;
+    border-radius: 0.25em;
+    color:  #218ce9;
+    font-size: 1.5em;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border 300ms, color 300ms;
+    user-select: none;
+
+  }
+
+  .button p {
+    z-index: 1;
+    font-size: 0.8em;
+
+    text-shadow: 1px -1px 0px black;
+  }
+
+  .button:hover {
+    color: aliceblue;
+  }
+
+  .button:active {
+    background-color: #1d7fd4 !important;
+    color: aliceblue;
+  }
+
+  .button::after, .button::before {
+    content: "";
+    position: absolute;
+    width: 9em;
+    aspect-ratio: 1;
+    background-color: #1e88e5 !important;
+    opacity: 50%;
+    border-radius: 50%;
+    transition: transform 500ms, background 300ms;
+  }
+
+  .button::before {
+    left: 0;
+    transform: translateX(-8em);
+  }
+
+  .button::after {
+    right: 0;
+    transform: translateX(8em);
+  }
+
+  .button:hover:before {
+    transform: translateX(-1em);
+  }
+
+  .button:hover:after {
+    transform: translateX(1em);
+  }
+
+  .button:active:before,
+  .button:active:after {
+    background-color: #1e88e5 !important;
+  }
+
+.buttons-select{
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.actives{
+  background-color: #1e88e5 !important;
+  color: #ffffff;
+}

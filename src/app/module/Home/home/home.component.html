@@ -1,0 +1,59 @@
+<div>
+  <main id="content2">
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <div class="head">
+            <div class="btn-container2" (click)="generarPDF()">
+              <img class="btn-ico" src="./assets/img/icon/ico-pdf.png" />
+            </div>
+          </div>
+          <h3>Resumen Auditoría</h3>
+        </div>
+        <app-loader *ngIf="!isloading"></app-loader>
+        <div class="table-data">
+          <div class="content-grafics">
+            <canvas id="myChart4" height="400"></canvas>
+          </div>
+        </div>
+        <div>
+          <div class="buttons-select mt-2 mb-3">
+            <button
+              [ngClass]="flagCerrado ? ['actives'] : []"
+              (click)="flagCerrados()"
+            >
+              <p>Cerrados</p>
+            </button>
+            <button
+              [ngClass]="flagTodo ? ['actives'] : []"
+              (click)="flagTodos()"
+            >
+              <p>Todos</p>
+            </button>
+            <button
+              [ngClass]="flagAbierto ? ['actives'] : []"
+              (click)="flagAbiertos()"
+            >
+              <p class="tex-center">Abiertos</p>
+            </button>
+          </div>
+
+          <app-tabla-abiertos
+            *ngIf="flagAbierto"
+            [abiertos]="abiertos"
+          ></app-tabla-abiertos>
+          <app-tabla-cerrados
+            *ngIf="flagCerrado"
+            [cerrados]="cerrados"
+          ></app-tabla-cerrados>
+          <app-tabla-todos
+            *ngIf="flagTodo"
+            [totales]="totales"
+          ></app-tabla-todos>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<app-generar-pdf *ngIf="flagPDF" [(flagReporte)]="flagPDF"></app-generar-pdf>

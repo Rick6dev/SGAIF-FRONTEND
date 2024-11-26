@@ -1,0 +1,73 @@
+#checkbox {
+  display: none;
+}
+
+.switch2,
+.switch3 {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255, 5, 5);
+  border-radius: 50%;
+  z-index: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(255, 126, 126);
+  box-shadow: 0px 0px 3px rgb(169, 168, 168) inset;
+}
+
+.powersign {
+  position: relative;
+  width: 40%;
+  height: 40%;
+  border: 4px solid rgb(248, 248, 248);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.powersign::before {
+  content: "";
+  width: 8px;
+  height: 60%;
+  background-color: rgb(248, 248, 248);
+  position: absolute;
+  top: -60%;
+  z-index: 2;
+}
+
+.powersign::after {
+  content: "";
+  width: 3px;
+  height: 60%;
+  background-color: rgb(255, 5, 5);
+  position: absolute;
+  top: -60%;
+  z-index: 3;
+}
+
+.switch3 .powersign {
+  border: 4px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 5px rgba(151, 243, 255, 0.556),
+    0px 0px 5px rgba(151, 243, 255, 0.5) inset;
+}
+
+.switch3 .powersign::after {
+  background-color: rgba(150, 255, 194, 0.445);
+}
+
+.switch3 {
+  box-shadow: 0px 0px 1px hsla(211, 100%, 79%, 0.525) inset,
+    0px 0px 2px rgba(150, 223, 255, 0.49) inset,
+    0px 0px 5px rgba(150, 251, 255, 0.538) inset,
+    0px 0px 20px rgba(150, 239, 255, 0.548);
+  border: 2px solid rgba(255, 255, 255, 0.392);
+  background-color: hsl(215, 97%, 66%);
+}
+
+.switch3 .powersign::before {
+  background-color: rgba(255, 255, 255, 0.445);
+}

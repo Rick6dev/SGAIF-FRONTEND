@@ -1,0 +1,52 @@
+
+
+
+<div class="modal fade " id="modal-macroproceso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" >
+        <div class="modal-header">
+         
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form"  method="post" id="FormTipoAuditoria" name="FormTipoAuditoria" >
+            <div class="header header-create">Crear un Macroproceso</div>
+            <div class="inputs">
+                <form class="" method="post" id="contactForm" name="contactForm" (ngSubmit)="guardarMacroproces()" [formGroup]="forma">
+                    <div class="row">
+                      <div class="  form-group mb-3">
+                        <label for="macroproceso"><strong>Nombre del Macroproceso </strong></label>
+
+                        <div class="input-container">
+                            <input type="text" value="" placeholder="Ingresa del Macroproceso" name="macroproceso" formControlName="macroproceso" autofocus class="form-control form-modal" id="macroproceso"
+                            [class.is-invalid]="MacroprocesoNoValido"
+                            [class.is-valid]="MacroprocesoValido">
+                      <small class="text-danger" *ngIf="MacroprocesoNoValido" >El Macroproceso debe tener un titulo coherente</small> 
+                        
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row ">
+                            <div class="col-md-6 form-group mb-4"   >
+                              <button   data-bs-dismiss="modal"  *ngIf="MacroprocesoValido"  class="submit submit-create  relative rounded px-5 py-2.5 overflow-hidden group bg-red-500  text-white hover:ring-2 hover:ring-offset-2 hover:ring-blue-400 transition-all ease-out duration-300" >
+                                <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                                <span class="relative text-button">Agregar </span>
+                              </button>
+                            </div>
+              
+                        
+                          </div>
+                </form>
+
+
+
+                
+
+     
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>

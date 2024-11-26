@@ -1,0 +1,100 @@
+<div class="container-card">
+  <div class="card">
+    <p class="cookieHeading">Reporte Generado</p>
+    <p class="cookieDescription">
+      Usuario el reporte fue generado correctamente
+    </p>
+    <div class="buttonContainer">
+      <button class="acceptButton excel" (click)="generarExcel()">Excel</button>
+      <button class="acceptButton pdf" (click)="imprimirTabla()">Pdf</button>
+      <button class="declineButton" type="button" (click)="ocultar()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<main id="content2" #content class="main mb-4">
+  <div class="">
+    <div class="table-data">
+      <div class="order" id="tabla">
+        <h3>Gestión Planificación Anual de Auditoría</h3>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col" colspan="11">
+                Gestión de Tiempo de Entregas Anual de Auditoría
+              </th>
+            </tr>
+          </thead>
+
+          <thead>
+            <tr>
+              <th>Proceso</th>
+              <th>Auditor</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Culminación</th>
+              <th>Diferencia Estimada</th>
+              <th>Fecha Culminacion Auditor</th>
+              <th>Fecha Aprobado Gerente</th>
+              <th>Fecha Avalado Vp</th>
+              <th>Diferencia Real</th>
+              <th>Desviación Estandar</th>
+              <th>Estado de Segumiento</th>
+            </tr>
+          </thead>
+
+          <tr *ngFor="let result of results">
+            <td class="text-s">
+              {{ result.subproceso.proceso.nombre_proceso }}
+            </td>
+            <td>
+              {{ result.auditorResponsable.nombre }}
+              {{ result.auditorResponsable.apellido }}
+            </td>
+            <td>{{ result.fecha_inicio | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td>{{ result.fecha_culminacion | fechaNormal : "DD/MM/YYYY" }}</td>
+            <td>
+              {{
+                result.fecha_inicio | diferenciaFecha : result.fecha_culminacion
+              }}
+            </td>
+            <td>
+              {{ result.fecha_culminado_auditor | fechaNormal : "DD/MM/YYYY" }}
+            </td>
+            <td>
+              {{ result.fecha_aprobado | fechaNormal : "DD/MM/YYYY" }}
+            </td>
+
+            <td>
+              {{ result.fecha_avalado | fechaNormal : "DD/MM/YYYY" }}
+            </td>
+
+            <td class="center">
+              {{ result.fecha_inicio | diferenciaFecha : result.fecha_avalado }}
+            </td>
+
+            <td class="s">
+              {{
+                result.fecha_culminacion
+                  | diferenciaFecha : result.fecha_avalado
+              }}
+            </td>
+
+            <td>
+              <div class="head">
+                <!-- <label [ngClass]="getClasses(result)" for="checkbox"> -->
+                <div class="powersign">{{ result.entrega }}</div>
+                <!-- </label> -->
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class=""></div>
+</main>

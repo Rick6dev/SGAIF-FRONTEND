@@ -1,0 +1,15 @@
+h3 {
+  text-align: center;
+}
+
+form {
+  padding: 1em;
+}
+
+.textarea {
+  min-height: 350px;
+}
+
+.btn-close {
+  background-color: rgb(255, 255, 255);
+}

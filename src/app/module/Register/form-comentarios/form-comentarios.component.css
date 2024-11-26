@@ -1,0 +1,23 @@
+.textarea{
+    min-height: 150px;
+}
+.hide{
+    display: none;
+}
+
+.textarea2{
+    min-height: 70px;
+
+}
+
+.btn-close{
+    margin: auto;
+    margin-left: 20em;
+    background-color: antiquewhite;
+    
+}
+.modal-header{
+    display: flex !important;
+    justify-content: start;
+    background-color: aqua;
+}

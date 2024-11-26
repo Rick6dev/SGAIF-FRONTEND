@@ -1,0 +1,16 @@
+.text{
+    text-align: center !important;
+    
+}
+th.text{
+    font-size: 2.3em;
+
+}
+
+td.text{
+    font-weight: 550;
+}
+
+th{
+    text-align: center !important;
+}

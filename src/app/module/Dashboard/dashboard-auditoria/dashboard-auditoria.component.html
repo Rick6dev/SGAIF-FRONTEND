@@ -1,0 +1,100 @@
+<main id="content2">
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Dashboard Hallazgo Vicepresidencia de Auditoría Interna</h3>
+      </div>
+    </div>
+    <div class="content-grafics">
+      <canvas id="myChart3" height="300"></canvas>
+    </div>
+  </div>
+</main>
+
+<main id="content2">
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Hallazgo Anual de la Vicepresidencia de Auditoría Interna</h3>
+      </div>
+
+      <div class="form-group">
+        <label for="year" class="form-label">Año</label>
+        <select
+          id="year"
+          name="year"
+          class="select form-select"
+          [(ngModel)]="currentYear"
+          [ngModelOptions]="{ standalone: true }"
+          (change)="change_Year()"
+        >
+          <option *ngFor="let year of years">{{ year }}</option>
+        </select>
+      </div>
+
+      <div class="content-grafics">
+        <canvas id="myChart11" height="70"></canvas>
+
+        <canvas (click)="change_Year()" id="myChart2" height="70"></canvas>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main id="content2">
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Nivel de Riesgo Asociado</h3>
+      </div>
+      <div class="form-group">
+        <label for="year2" class="form-label">Año</label>
+        <select
+          id="year2"
+          name="year"
+          class="select form-select"
+          [(ngModel)]="currentYear"
+          [ngModelOptions]="{ standalone: true }"
+          (change)="change_Year()"
+        >
+          <option *ngFor="let year of years">{{ year }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="content-grafics content-grafics2">
+      <canvas id="myChart5" height="70"></canvas>
+
+      <canvas (click)="change_Year()" id="myChart6" height="70"></canvas>
+    </div>
+  </div>
+</main>
+
+<main id="content2">
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Riesgo Asociado</h3>
+      </div>
+      <div class="form-group">
+        <label for="year3" class="form-label">Año</label>
+        <select
+          id="year3"
+          name="year"
+          class="select form-select"
+          [(ngModel)]="currentYear"
+          [ngModelOptions]="{ standalone: true }"
+          (change)="change_Year()"
+        >
+          <option *ngFor="let year of years">{{ year }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="content-grafics">
+      <canvas id="myChart12" height="70"></canvas>
+
+      <canvas (click)="change_Year()" id="myChart13" height="70"></canvas>
+    </div>
+  </div>
+</main>

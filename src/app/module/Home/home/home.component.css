@@ -1,0 +1,87 @@
+.buttons-select {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.btn-ico {
+  width: 100%;
+}
+
+.btn-container2 {
+  background-color: transparent;
+  border: 0px transparent;
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+  transition: 0.4s all ease-in-out;
+}
+.btn-container2:hover {
+  background-color: transparent;
+  transform: scale(1.3em);
+}
+
+.content-grafics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  gap: 2em;
+}
+
+.content-grafics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  gap: 2em;
+}
+
+@media (max-width: 1024px) {
+  .content-grafics {
+    flex-direction: column;
+    justify-content: space-around;
+    height: auto;
+  }
+  body.dark .content2 {
+    background-color: red !important;
+  }
+
+  canvas {
+    width: 100%;
+    max-width: 470px; /* Ajusta el tamaño máximo según sea necesario */
+    height: auto;
+  }
+}
+
+#myChart3 {
+  width: 100%;
+}
+
+.content-grafics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  gap: 2em;
+}
+
+@media (max-width: 1024px) {
+  .content-grafics {
+    flex-direction: column;
+    justify-content: space-around;
+    height: auto;
+  }
+  body.dark .content2 {
+    background-color: red !important;
+  }
+
+  canvas {
+    width: 100%;
+    max-width: 100%; /* Ajusta el tamaño máximo según sea necesario */
+    height: auto;
+  }
+}
+
+#myChart4 {
+  width: 100% !important;
+}

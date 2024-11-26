@@ -1,0 +1,197 @@
+<div class="container">
+  <div class="row gap-1 centro center">
+    <div
+      cdkDropList
+      class="col-3 container-drop"
+      #ln1="cdkDropList"
+      id="cdk-drop-list-0"
+      [cdkDropListData]="listNumbers1"
+      [cdkDropListConnectedTo]="[ln2]"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListDisabled]="!isDragEnabled"
+    >
+      <div class="tools">
+        <div class="circle">
+          <span class="blue box"></span>
+        </div>
+        <h2 class="title-drop">Asignados</h2>
+      </div>
+
+      <div
+        cdkDrag
+        class="cards"
+        *ngFor="let n of listNumbers1"
+        [cdkDragDisabled]="!isDragEnabled"
+      >
+        <!-- Aquí se usa la bandera -->
+        <div class="card blue">
+          <button
+            class="btn-info"
+            (click)="getInfo(n)"
+            data-bs-toggle="modal"
+            data-bs-target="#panificacionsingle"
+          >
+            <img class="ico-btn" src="./assets/img/icon/ico-info.png" alt="" />
+          </button>
+
+          <div class="text" (click)="extractData(n, 1)">
+            <p class="tip">{{ n.subproceso.proceso.nombre_proceso }}</p>
+            <p class="tip text-tip">{{ n.subproceso.nombre_subproceso }}</p>
+            <p class="second-text">
+              {{ n.auditorResponsable.nombre }}
+              {{ n.auditorResponsable.apellido }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      cdkDropList
+      class="col-3 container-drop"
+      #ln2="cdkDropList"
+      id="cdk-drop-list-1"
+      [cdkDropListData]="listNumbers2"
+      [cdkDropListConnectedTo]="[ln1, ln3]"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListDisabled]="!isDragEnabled2"
+    >
+      <div class="tools">
+        <div class="circle">
+          <span class="yellow box"></span>
+        </div>
+        <h2 class="title-drop">En Proceso</h2>
+      </div>
+
+      <div
+        cdkDrag
+        class="cards"
+        *ngFor="let n of listNumbers2"
+        [cdkDragDisabled]="!isDragEnabled2"
+      >
+        <!-- Aquí se usa la bandera -->
+        <div class="card yellow">
+          <button
+            class="btn-info"
+            (click)="getInfo(n)"
+            data-bs-toggle="modal"
+            data-bs-target="#panificacionsingle"
+          >
+            <img class="ico-btn" src="./assets/img/icon/ico-info.png" alt="" />
+          </button>
+
+          <img
+            class="btn-ico paper"
+            *ngIf="n.flagDesaprobadoGerente && !n.flagDesaprobadoVp"
+            src="./assets/img/icon/ico-desaprobado.png"
+            alt=""
+          />
+          <img
+            class="btn-ico paper"
+            *ngIf="n.flagDesaprobadoVp"
+            src="./assets/img/icon/ico-desaprobadoVP.png"
+            alt=""
+          />
+
+          <div class="text" (click)="extractData(n, 2)">
+            <p class="tip">{{ n.subproceso.proceso.nombre_proceso }}</p>
+            <p class="tip text-tip">{{ n.subproceso.nombre_subproceso }}</p>
+            <p class="second-text">
+              {{ n.auditorResponsable.nombre }}
+              {{ n.auditorResponsable.apellido }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      cdkDropList
+      class="col-3 container-drop"
+      #ln3="cdkDropList"
+      id="cdk-drop-list-2"
+      [cdkDropListData]="listNumbers3"
+      [cdkDropListConnectedTo]="[ln2]"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListDisabled]="!isDragEnabled3"
+    >
+      <!-- Aquí se usa la bandera -->
+
+      <div class="tools">
+        <div class="circle">
+          <span class="green box"></span>
+        </div>
+        <h2 class="title-drop">Culminados</h2>
+      </div>
+
+      <div
+        cdkDrag
+        class="cards"
+        *ngFor="let n of listNumbers3"
+        [cdkDragDisabled]="!isDragEnabled3"
+      >
+        <!-- Aquí se usa la bandera -->
+        <div class="card green">
+          <button
+            class="btn-info"
+            (click)="getInfo(n)"
+            data-bs-toggle="modal"
+            data-bs-target="#panificacionsingle"
+          >
+            <img class="ico-btn" src="./assets/img/icon/ico-info.png" alt="" />
+          </button>
+
+          <img
+            class="btn-ico"
+            *ngIf="n.flagAprobadoGerente && !n.flagAprobadoVp"
+            src="./assets/img/icon/ico-check.png"
+            alt=""
+          />
+          <img
+            class="btn-ico star"
+            *ngIf="n.flagAprobadoVp"
+            src="./assets/img/icon/ico-triple-check.png"
+            alt=""
+          />
+          <!-- <button class="btn-close" (click)="anularSeleccion()" *ngIf="isDragEnabled3"></button> -->
+          <div class="text" (click)="extractData(n, 3)">
+            <p class="tip">{{ n.subproceso.proceso.nombre_proceso }}</p>
+            <p class="tip text-tip text-finish">
+              {{ n.subproceso.nombre_subproceso }}
+            </p>
+            <p class="second-text">
+              {{ n.auditorResponsable.nombre }}
+              {{ n.auditorResponsable.apellido }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fixed" *ngIf="isComent">
+  <form
+    class="form"
+    [formGroup]="forma"
+    name="contactForm"
+    (ngSubmit)="guardarInforme()"
+  >
+    <p class="title">Registra los avances del Proceso</p>
+    <div class="">
+      <label> Comentario </label>
+      <textarea
+        required="True"
+        placeholder=""
+        formControlName="comentario"
+        class="input"
+      ></textarea>
+    </div>
+    <button class="submit">Registrar</button>
+  </form>
+</div>
+
+<app-modal-planificacion
+  [comentarios]="comentarios"
+  [data]="data"
+></app-modal-planificacion>

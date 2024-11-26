@@ -1,0 +1,108 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 25px;
+}
+
+.cards .red {
+  background-color: #f43f5e;
+}
+
+.cards .blue {
+  background-color: #3b82f6;
+}
+
+.cards .green {
+  background-color: #22c55e;
+}
+
+.cards .yellow {
+  background-color: #c2c522;
+}
+
+.cards .card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 140px;
+  width: 16em;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.cards .card p.tip {
+  font-size: 1em;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px black;
+}
+
+.cards .card p.second-text {
+  font-size: 0.9em;
+}
+
+.cards .btn-info,
+.cards .text {
+  transition: all ease-in-out 0.4s;
+}
+
+.card:hover {
+  transform: scale(1.05, 1.05);
+}
+
+@media (max-width: 768px) {
+  .center {
+    flex-direction: row; /* Cambia a fila en pantallas más anchas */
+    justify-content: space-between; /* Ajusta el espacio entre los elementos */
+  }
+}
+
+.btn-info {
+  position: absolute;
+  bottom: 2%;
+  right: -16%;
+  width: 40px;
+  height: 40px;
+  z-index: 400000;
+  border: transparent;
+  background-color: transparent !important;
+}
+
+.ico-btn {
+  border: 0 transparent;
+  width: 100%;
+  /* background-color: transparent; */
+}
+
+.text {
+  width: 96%;
+  height: 80%;
+}
+
+.text-tip {
+  font-size: 0.8em !important;
+  text-decoration: solid;
+  color: aliceblue;
+  font-weight: 500;
+  text-decoration-line: underline;
+  transition: all ease-in-out;
+}
+
+.text-finish {
+  text-decoration-line: line-through;
+}
+/* .container {
+  background-color: #22c55e;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+} */
+
+.centro {
+  justify-content: start;
+  align-items: start;
+}

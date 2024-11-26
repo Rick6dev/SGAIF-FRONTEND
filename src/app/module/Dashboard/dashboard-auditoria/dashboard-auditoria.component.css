@@ -1,0 +1,71 @@
+.content-grafics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 380px;
+  gap: 2em;
+}
+.content-grafics2 {
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 380px;
+}
+.content-grafics2 canvas {
+  width: 7rem;
+}
+
+@media (max-width: 1024px) {
+  .content-grafics {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+  }
+  body.dark .content2 {
+    background-color: red !important;
+  }
+  canvas {
+    width: 100%;
+    /* max-width: 370px; Ajusta el tamaño máximo según sea necesario */
+
+    height: auto;
+  }
+}
+
+#myChart3 {
+  width: 100%;
+}
+
+.form-group {
+  width: 20%;
+  text-align: center;
+}
+
+.select {
+  text-align: center;
+  font-weight: 900;
+}
+
+h3 {
+  font-size: clamp(1rem, 2vw+1rem, 4rem);
+}
+
+#myChart11,
+#myChart2,
+#myChart12,
+#myChart13 {
+  width: 400px !important;
+  height: 400px !important;
+}
+
+#myChart12,
+#myChart13 {
+  width: 420px !important;
+  height: 420px !important;
+}
+
+/* #myChart13,
+#myChart12 {
+  width: 35em !important;
+  height: 80em !important;
+} */

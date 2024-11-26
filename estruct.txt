@@ -1,0 +1,9 @@
+
+<main class="body" >
+    <app-navigation   ></app-navigation>
+    <section id="content"    >
+        <div id="content2">
+        
+        </div>
+    </section>    
+</main>

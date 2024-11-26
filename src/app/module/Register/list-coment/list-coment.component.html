@@ -1,0 +1,12 @@
+
+    <li class="list-group-item"><p>
+        
+        <span *ngIf="coment.fecha_comentario">{{coment.fecha_comentario |fechaFormat2}}:</span>
+         {{coment.comentario |saltoLinea}} </p>
+            <p> ( {{coment.id_auditor_responsable
+                .nombre
+                    }} {{coment.id_auditor_responsable
+        .apellido
+            }}   )</p>
+        </li>   
+

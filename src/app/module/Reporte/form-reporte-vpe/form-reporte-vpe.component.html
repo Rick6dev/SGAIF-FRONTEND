@@ -1,0 +1,27 @@
+<form class="" method="post" id="contactForm" name="contactForm" (ngSubmit)="realizarReporte()" [formGroup]="forma">
+    <div class="row mt-4 mb-3">
+        <app-loader-barra *ngIf="flagLoading" class=" mb-3"></app-loader-barra>
+        <div class="col-md-4 form-group mb-1">
+    <label for="Vpe"  class="form-label"><strong>Vice-presidencia Ejecutiva</strong></label>
+    <select id="Vpe" class="select form-select"  formControlName="id_vpe" 
+    [class.is-invalid]="VpResponsableNoValido"
+    [class.is-valid]="VpResponsableValido" >
+        <option    *ngFor="let VPE of VPEs"  value="{{VPE.id_vpe}}"> {{VPE.nombre_vpe | capitalize}}</option>
+    </select>
+        </div>
+        <small class="text-danger" *ngIf="VpResponsableNoValido">Debe seleccionar una opcion para continuar</small> 
+    </div>
+    <div class="row center" >
+        <div class="col-md-12 form-group mb-4 center">
+        <button type="submit" class="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
+            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+            <span class="relative text-button">Emitir Reporte VPE</span>
+        </button>
+        </div>
+        <div class="col-md-12 form-group mb-4 center">
+        </div>
+    </div>
+</form>
+
+<app-generar-reporte *ngIf="flagReporte" [(flagReporte)]="flagReporte" [results]="results" [name]="name" [nameVpe]="nameVpe" ></app-generar-reporte>
+

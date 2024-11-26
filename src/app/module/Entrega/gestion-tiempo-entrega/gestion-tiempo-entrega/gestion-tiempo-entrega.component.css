@@ -1,0 +1,76 @@
+.text-s {
+  font-size: 0.7em;
+}
+
+.td {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center;
+  margin: auto;
+}
+.btn-ico {
+  width: 50px;
+}
+
+.btn-container {
+  background-color: transparent;
+  border: none;
+}
+
+.content-grafics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  gap: 2em;
+  background-color: blueviolet;
+  margin-top: -1em;
+}
+
+@media (max-width: 1024px) {
+  .content-grafics {
+    flex-direction: column;
+    justify-content: space-around;
+    height: auto;
+    align-items: center;
+  }
+  body.dark .content2 {
+    background-color: red !important;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+  }
+}
+
+#myChart3 {
+  width: 100% !important;
+}
+
+.table-data {
+  border-radius: 1em;
+}
+.haed {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background-color: blue;
+}
+h3 {
+  text-align: center;
+  font-weight: 700;
+}
+
+.filtros {
+  width: 100%;
+  display: flex;
+}
+
+.head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}

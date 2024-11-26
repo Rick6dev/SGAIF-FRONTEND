@@ -1,0 +1,40 @@
+<table>
+    <thead>
+    <tr >
+    </tr>
+    <tr>
+        <th class="text">Año</th>
+        <th class="text">Gerencia Encargada</th>
+        <th class="text">Hallazgo Totales</th>
+
+        <th class="text">Hallazgo Abiertos</th>
+        <th class="text">Hallazgo Cerrados</th>
+
+    </tr>
+    </thead>
+    <tbody >
+    <tr *ngFor ="let total of totales">
+        <td scope="row" class="cod text"> {{total.created_year}}
+        </td>
+
+        <td class="text">
+            <p *ngIf="total.id_gerencia_encargada==2">GAOF</p>
+            <p *ngIf="total.id_gerencia_encargada==1">GAT</p>
+
+        </td> 
+        <td class="text" >
+            {{total.total_casos}}
+        </td>
+
+
+        <td class="text" >
+            {{total.casos_abiertos}}
+        </td>
+
+     
+        <td class="text" >
+            {{total.casos_cerrados}}
+        </td>
+    </tr>
+    </tbody>
+</table>

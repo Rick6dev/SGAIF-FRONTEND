@@ -1,0 +1,26 @@
+.center{
+    text-align: center;
+}
+
+.text-s{
+    font-size: 0.8em;
+}
+.container-edit{
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+}
+.head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:2em;
+}
+.btn-ico{
+    width: 50px;
+}
+
+.btn-container{
+    background-color: transparent;
+    border: none;
+}

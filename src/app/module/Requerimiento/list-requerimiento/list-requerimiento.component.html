@@ -1,0 +1,296 @@
+<main class="content" id="content2">
+  <div class="container">
+    <div class="row align-items-stretch no-gutters contact-wrap">
+      <main id="content2" class="main" *ngIf="requerimientos != null">
+        <div class="">
+          <div class="table-data">
+            <div class="order">
+              <div class="head">
+                <div class="container-btn" (click)="mostrarPanel()">
+                  <img
+                    class="ico-btn2"
+                    src="../../../../assets/img/icon/ico-pdf.png"
+                  />
+                </div>
+
+                <h3>Requerimiento de Informes de Auditoría</h3>
+              </div>
+
+              <div class="head">
+                <div class="col-md-4 form-group">
+                  <label for="auditor" class="form-label"
+                    ><strong>Buscador Auditor </strong></label
+                  >
+                  <select
+                    id="auditor"
+                    class="select form-select"
+                    [(ngModel)]="searchTerm.searchAuditor"
+                    (change)="searchPlanificacionAuditor()"
+                  >
+                    <option [value]="0">Todos</option>
+                    <option
+                      *ngFor="let auditor of auditores"
+                      [value]="auditor.id_auditor_responsable"
+                    >
+                      {{ auditor.nombre }} {{ auditor.apellido }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="auditor" class="form-label"
+                    ><strong>Buscador Informes Auditoria </strong></label
+                  >
+                  <select
+                    id="auditor"
+                    class="select form-select"
+                    [(ngModel)]="searchTerm.informe"
+                    (change)="searchPlanificacionInformes()"
+                  >
+                    <option [value]="0">Todos</option>
+                    <option
+                      *ngFor="let informe of informes"
+                      [value]="informe.id_informe_auditoria"
+                    >
+                      {{ informe.cod_informe }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código Informe</th>
+                    <th>Auditor</th>
+                    <th>Fecha Solicitud</th>
+                    <th>Funcional</th>
+                    <th>Estatus</th>
+                    <th>N° Devoluciones</th>
+                    <th scope="col ">
+                      <p>Opciones</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let result of requerimientos">
+                    <th scope="row" class="cod">
+                      {{ result.informe_auditorium.cod_informe }}
+                    </th>
+                    <th scope="row" class="cod">
+                      {{ result.usuario.nombre }} {{ result.usuario.apellido }}
+                    </th>
+                    <th>{{ result.fecha_solicitud }}</th>
+                    <th>
+                      {{ result.nombre_responsable }}
+                      {{ result.apellido_responsable }}
+                    </th>
+
+                    <th>
+                      {{
+                        result.estado_requirimiento.nombre_estado_requerimiento
+                      }}
+                    </th>
+                    <th>{{ result.cantidad_devoluciones }}</th>
+                    <th>
+                      <div
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <div
+                          class="wrapper"
+                          (click)="setActiveItem(result.id_requerimiento)"
+                        >
+                          <input
+                            type="checkbox"
+                            class="hidden-trigger"
+                            id="{{ result.id_requerimiento }}"
+                            [ngClass]="{
+                              checked: checkedItem === result.id_requerimiento
+                            }"
+                            class="hidden-trigger"
+                            (click)="setActiveItem(result.id_requerimiento)"
+                          />
+                          <label
+                            for="{{ result.id_requerimiento }}"
+                            class="circle"
+                          >
+                            <svg
+                              class="svg"
+                              xmlns="http://www.w3.org/2000/svg"
+                              xmlns:xlink="http://www.w3.org/1999/xlink"
+                              width="48"
+                              height="48"
+                              xml:space="preserve"
+                              version="1.1"
+                              viewBox="0 0 48 48"
+                            >
+                              <image
+                                width="48"
+                                height="48"
+                                xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC"
+                              ></image>
+                            </svg>
+                          </label>
+                          <div class="subs">
+                            <button
+                              *ngIf="result.id_estado_requerimiento == 1"
+                              type="button"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModalDelete"
+                              (click)="extraerRequerimiento(result)"
+                            >
+                              <img
+                                class="ico-btn"
+                                src="./assets/img/icon/ico-eliminar.png"
+                                alt=""
+                              />
+                              <div class="container-img"></div>
+                              <div class="info">Eliminar</div>
+                            </button>
+
+                            <button
+                              *ngIf="
+                                result.id_estado_requerimiento == 2 ||
+                                result.id_estado_requerimiento == 3
+                              "
+                              (click)="extraerData(result, 5)"
+                              type="button"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModalU"
+                            >
+                              <div class="container-img">
+                                <img
+                                  class="ico-btn"
+                                  src="/assets/img/icon/ico-req.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="info">Cerrar</div>
+                            </button>
+
+                            <button
+                              type="button"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#ReqModalToggle2"
+                              (click)="extraerRequerimiento(result)"
+                            >
+                              <div class="container-img">
+                                <img
+                                  class="ico-btn"
+                                  src="/assets/img/icon/ico-info.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="info">Detalle</div>
+                            </button>
+                            <button
+                              *ngIf="result.id_estado_requerimiento == 1"
+                              type="button"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#example99"
+                              (click)="extraerRequerimiento(result)"
+                            >
+                              <div class="container-img">
+                                <img
+                                  class="ico-btn"
+                                  src="/assets/img/icon/ico-editar.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="info">Actualizar</div>
+                            </button>
+
+                            <button
+                              *ngIf="result.id_estado_requerimiento == 2"
+                              (click)="extraerData(result, 3)"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModalU"
+                            >
+                              <div class="container-img">
+                                <img
+                                  class="ico-btn"
+                                  src="./assets/img/icon/icono-devolver.png"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="info">Devolver</div>
+                            </button>
+
+                            <button
+                              *ngIf="result.id_estado_requerimiento == 2"
+                              (click)="extraerData(result, 4)"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModalU"
+                            >
+                              <div class="container-img">
+                                <img
+                                  class="ico-btn"
+                                  src="./assets/img/icon/ico-aceptar.png"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="info">Aceptar</div>
+                            </button>
+
+                            <button
+                              *ngIf="
+                                result.id_estado_requerimiento == 1 ||
+                                result.id_estado_requerimiento == 3
+                              "
+                              type="button"
+                              class="sub-circle"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModalU"
+                              (click)="extraerData(result, 2)"
+                            >
+                              <div class="container-img">
+                                <img
+                                  class="ico-btn"
+                                  src="./assets/img/icon/ico-revision.png"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="info">Revisar</div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</main>
+
+<app-loader *ngIf="requerimientos === null"></app-loader>
+<app-modal-update
+  (datosActualizados)="requerimientos = $event"
+  [updateData]="updateData"
+></app-modal-update>
+
+<app-list-modal-requrimiento></app-list-modal-requrimiento>
+<app-form-modal-update
+  [updateData]="updateData"
+  (datosActualizados)="requerimientos = $event"
+></app-form-modal-update>
+<app-modal-eliminar-requerimiento
+  (datosActualizados)="requerimientos = $event"
+  [deleteData]="updateData"
+></app-modal-eliminar-requerimiento>
+<app-generar-requerimiento
+  [requerimientos]="requerimientos"
+  *ngIf="flagReporte"
+  [(flagReporte)]="flagReporte"
+></app-generar-requerimiento>

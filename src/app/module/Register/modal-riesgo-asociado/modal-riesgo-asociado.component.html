@@ -1,0 +1,30 @@
+
+
+
+  <div  >
+    <div class="modal fade  modal-fullscreen "  id="modal-riesgo" aria-hidden="true" aria-labelledby="modal-riesgo" tabindex="-1" >
+      <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" >
+        <div class="modal-content" >
+
+          <div class="modal-body">
+            <form class="form"  method="post" id="FormTipoAuditoria" name="FormTipoAuditoria" (ngSubmit)="validarFormualrio()">
+              <div class="header">Crear Riesgo Asociado</div>
+              <div class="inputs">
+                <label for="nombre_rsg"  class="col-md-6 form-group "><strong>Nombre Riesgo Asociado </strong></label>
+
+                  <input type="text" maxlength="29" placeholder="Ingresa el Riesgo Asociado" name="nombre_informe"  [(ngModel)]="rsgAsociado.nombre" autofocus class="input" id="nombre_rsg">
+              <div class="row ">
+                <div class="col-md-12 form-group mb-4">
+                  <button type="submit"  class="submit  relative rounded px-5 py-2.5 overflow-hidden group bg-green-500  text-white hover:ring-2 hover:ring-offset-2 hover:ring-blue-400 transition-all ease-out duration-300">
+                    <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                    <span class="relative text-button">Registrar</span>
+                  </button>
+                </div>
+              </div>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,250 @@
+<div>
+  <div class="container">
+    <div class="row align-items-stretch no-gutters contact-wrap">
+      <div class="col-md-12">
+        <div class="form h-150">
+          <h3>
+            Registrar Hallazgo <small>({{ cod_informe }})</small>
+          </h3>
+          <form
+            class="mb-1"
+            method="post"
+            [formGroup]="forma"
+            (ngSubmit)="guardarHllz()"
+            name="contactForm"
+          >
+            <div class="row">
+              <div class="col-md-4 form-group mb-3">
+                <label for="riesgoA" class="form-label"
+                  ><strong>Riesgo Asociado</strong></label
+                >
+                <select
+                  id="riesgoA"
+                  class="select form-select"
+                  formControlName="id_riesgo"
+                  [class.is-invalid]="riesgoAsociadoNoValido"
+                  [class.is-valid]="riesgoAsociadoValido"
+                >
+                  <option
+                    *ngFor="let riesgo of riesgos"
+                    value="{{ riesgo.id_riesgo_asociado }}"
+                  >
+                    {{ riesgo.nombre_riesgo_asociado }}
+                  </option>
+                </select>
+                <small class="text-danger" *ngIf="riesgoAsociadoNoValido"
+                  >Debe seleccionar una opcion para continuar</small
+                >
+              </div>
+              <div class="col-md-4 form-group mb-1">
+                <label for="nvlrsg" class="form-label"
+                  ><strong>Nivel Riesgo</strong></label
+                >
+
+                <select
+                  id="nvlrsg"
+                  class="select form-select"
+                  formControlName="id_nivel"
+                  [class.is-invalid]="nivelRiesgoNoValido"
+                  [class.is-valid]="nivelRiesgoValido"
+                >
+                  <option
+                    *ngFor="let niveleRiesgo of nivelesRiesgo"
+                    value="{{ niveleRiesgo.id_nivel_riesgo }}"
+                  >
+                    {{ niveleRiesgo.nombre_nivel_riesgo }}
+                  </option>
+                </select>
+                <small class="text-danger" *ngIf="nivelRiesgoNoValido"
+                  >Debe seleccionar una opcion para continuar</small
+                >
+              </div>
+              <div class="col-md-4 form-group mb-1">
+                <label for="riesgo" class="form-label"
+                  ><strong>Estatus Plan de Acción</strong></label
+                >
+                <select
+                  id="riesgo"
+                  class="select form-select"
+                  formControlName="estatus"
+                  [class.is-invalid]="estatusPlanAccionNoValido"
+                  [class.is-valid]="estatusPlanAccionValido"
+                >
+                  <option *ngFor="let estatu of estatus" [value]="estatu">
+                    {{ estatu }}
+                  </option>
+                </select>
+                <small class="text-danger" *ngIf="estatusPlanAccionNoValido"
+                  >Debe seleccionar una opcion para continuar</small
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-group mb-1">
+                <label for="Vpe" class="form-label"
+                  ><strong>Vice-presidencia Ejecutiva</strong></label
+                >
+                <select
+                  id="Vpe"
+                  class="select form-select"
+                  [(ngModel)]="id_Vpe"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="getVP(id_Vpe)"
+                  [class.is-invalid]="gerenciaResponsableNoValido"
+                  [class.is-valid]="gerenciaResponsableValido"
+                >
+                  <option *ngFor="let VPE of VPEs" value="{{ VPE.id_vpe }}">
+                    {{ VPE.nombre_vpe | capitalize }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4 form-group mb-1" *ngIf="id_Vpe != 0">
+                <label for="VP" class="form-label"
+                  ><strong>Vice-presidencia</strong></label
+                >
+                <select
+                  id="VP"
+                  class="select form-select"
+                  [(ngModel)]="id_vp"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="getGrc(id_vp)"
+                  [class.is-invalid]="gerenciaResponsableNoValido"
+                  [class.is-valid]="gerenciaResponsableValido"
+                >
+                  <option *ngFor="let Vp of VPs" value="{{ Vp.id_vp }}">
+                    {{ Vp.nombre_vp | capitalize }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4 form-group mb-1" *ngIf="flagGrc">
+                <label for="grc" class="form-label"
+                  ><strong>Gerencia</strong></label
+                >
+                <select
+                  id="grc"
+                  class="select form-select"
+                  formControlName="id_gerencia"
+                  [class.is-invalid]="gerenciaResponsableNoValido"
+                  [class.is-valid]="gerenciaResponsableValido"
+                >
+                  <option
+                    *ngFor="let Grc of Grcs"
+                    value="{{ Grc.id_gerencia }}"
+                  >
+                    {{ Grc.nombre_gerencia | capitalize }}
+                  </option>
+                </select>
+              </div>
+              <small class="text-danger" *ngIf="gerenciaResponsableNoValido"
+                >Debe seleccionar una opcion para continuar</small
+              >
+            </div>
+            <div class=""></div>
+            <div class="row mb-2">
+              <div>
+                <label class="form-label"><strong>Hallazgo</strong></label>
+                <textarea
+                  name="hllz"
+                  class="form-control textarea"
+                  formControlName="detalle"
+                  [class.is-invalid]="hallazgoNoValido"
+                  [class.is-valid]="hallazgoValido"
+                ></textarea>
+                <small *ngIf="hallazgoNoValido" class="text-danger"
+                  >El Hallazgo debe tener un min de 50 caracteres y un max
+                  1200</small
+                >
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-6 form-group">
+                <label for="recomen" class="form-label"
+                  ><strong>Recomendación</strong></label
+                >
+
+                <textarea
+                  name="recomen"
+                  id="recomen"
+                  rows="4"
+                  class="form-control textarea"
+                  formControlName="recomendacion"
+                  [class.is-invalid]="recomendacionNoValido"
+                  [class.is-valid]="recomendacionValido"
+                ></textarea>
+                <small *ngIf="recomendacionNoValido" class="text-danger"
+                  >La Recomendación debe tener un min de 50 caracteres y un max
+                  1200</small
+                >
+              </div>
+              <div class="col-md-6 form-group">
+                <div class="mb-1">
+                  <label for="accion_correct" class="form-label"
+                    ><strong>Accion Correctiva</strong></label
+                  >
+                  <textarea
+                    name="accion_correct"
+                    id="accion_correct"
+                    rows="4"
+                    class="form-control textarea"
+                    formControlName="accion"
+                    [class.is-invalid]="accionCorrectivaNoValido"
+                    [class.is-valid]="accionCorrectivaValido"
+                  ></textarea>
+                  <small *ngIf="accionCorrectivaNoValido" class="text-danger"
+                    >La Recomendación debe tener un min de 50 caracteres y un
+                    max 1200</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group option-buttons">
+                <button
+                  type="submit"
+                  class="relative rounded px-5 py-2.5 overflow-hidden group bg-green-500 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
+                >
+                  <span
+                    class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"
+                  ></span>
+                  <span class="relative text-button">Registrar</span>
+                </button>
+                <div class="buttons" *ngIf="user.role == 1 || user.role == 2">
+                  <div class="btn-auditoria">
+                    <button
+                      type="button"
+                      (click)="toggledsideBar()"
+                      class="btn ico-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modal-nivelRiesgo"
+                    >
+                      <img src="./assets/img/icon/ico_riesgo.png" alt="" />
+                    </button>
+                  </div>
+                  <div class="btn-auditoria">
+                    <button
+                      type="button"
+                      (click)="toggledsideBar()"
+                      class="btn ico-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modal-riesgo"
+                    >
+                      <img src="./assets/img/icon/ico_asociado.png" alt="" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal-nivel-asociado
+  [nvlRsg]="nivelesRiesgo"
+  (datoActualizado)="nivelesRiesgo = $event"
+></app-modal-nivel-asociado>
+<app-modal-riesgo-asociado
+  [riesgo]="riesgos"
+  (datoActualizado)="riesgos = $event"
+></app-modal-riesgo-asociado>

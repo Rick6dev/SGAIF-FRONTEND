@@ -1,0 +1,225 @@
+<section id="sidebar" (click)="updateNav()" *ngIf="Islogged">
+  <div class="brand">
+    <i class="bx"
+      ><img class="ico-btn" src="./assets/img/icon/ico-credicard.png" alt=""
+    /></i>
+    <span class="text">Credicard</span>
+  </div>
+  <ul class="side-menu top" *ngIf="Islogged">
+    <li [ngClass]="{ active: activeItem === 'inicio' }">
+      <a
+        routerLink="/inicio"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('inicio')"
+      >
+        <i class="bx bxs-dashboard"></i>
+        <span class="text-amber-300 text">Inicio</span>
+      </a>
+    </li>
+
+    <li [ngClass]="{ active: activeItem === 'dashboard' }">
+      <a
+        routerLink="/dashboard"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('dashboard')"
+      >
+        <i class="bx bxs-bar-chart-square"></i>
+        <span class="text-amber-300 text">Dashboard</span>
+      </a>
+    </li>
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'createInf' }">
+      <a
+        routerLink="/register/FormInforme"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('createInf')"
+      >
+        <i class="bx bxs-file-plus"></i>
+        <span class="text">Crear Informe</span>
+      </a>
+    </li>
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'Inf' }">
+      <a
+        routerLink="/register/informes"
+        pathMatch="relative"
+        (click)="setActiveItem('Inf')"
+      >
+        <i class="bx bxs-doughnut-chart"></i>
+        <span class="text">Listar Informes</span>
+      </a>
+    </li>
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'Hllz' }">
+      <a
+        routerLink="/register/hallazgos"
+        pathMatch="relative"
+        (click)="setActiveItem('Hllz')"
+      >
+        <i class="bx bxs-detail"></i>
+        <div class="i-eos-icons:data-scientist-outlined w-1em h-1em"></div>
+        <span class="text">Listar Hallazgo</span>
+      </a>
+    </li>
+
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'req' }">
+      <a
+        routerLink="/gestion-requerimiento"
+        pathMatch="relative"
+        (click)="setActiveItem('req')"
+      >
+        <i class="bx bxs-message-rounded-detail"></i>
+        <div class="i-eos-icons:data-scientist-outlined w-1em h-1em"></div>
+        <span class="text">Listar Requerimiento</span>
+      </a>
+    </li>
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'reporte' }">
+      <a
+        routerLink="/report/informe"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('reporte')"
+      >
+        <i class="bx bxs-receipt"></i>
+        <span class="text">Realizar Reporte</span>
+      </a>
+    </li>
+
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'vacacion' }">
+      <a
+        routerLink="/vacacion"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('vacacion')"
+      >
+        <i class="bx bxs-user-account"></i>
+        <span class="text">Gestión Vacación</span>
+      </a>
+    </li>
+
+    <li [ngClass]="{ active: activeItem === 'planificacion' }">
+      <a
+        routerLink="/planificacion"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('planificacion')"
+      >
+        <i class="bx bxs-analyse"></i>
+        <span class="text">Planificación de Auditoría</span>
+      </a>
+    </li>
+
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'calendar' }">
+      <a
+        routerLink="/calendar"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('calendar')"
+      >
+        <i class="bx bxs-calendar-alt"></i>
+        <span class="text">Calendario Anual</span>
+      </a>
+    </li>
+    <li
+      *ngIf="Islogged"
+      [ngClass]="{ active: activeItem === 'gestion-planificacion' }"
+    >
+      <a
+        routerLink="/gestion-planificacion"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('gestion-planificacion')"
+      >
+        <i class="bx bxs-book-reader"></i>
+        <span class="text">Gestión de Auditoría</span>
+      </a>
+    </li>
+
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'ejecute' }">
+      <a
+        routerLink="/ejecucion-planificacion"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('ejecute')"
+      >
+        <i class="bx bxs-purchase-tag-alt"></i>
+        <span class="text">Ejecución Plan de Auditoría</span>
+      </a>
+    </li>
+
+    <li *ngIf="Islogged" [ngClass]="{ active: activeItem === 'time' }">
+      <a
+        routerLink="/gestion-tiempo-planificacion"
+        pathMatch="relative"
+        pathMatch="relative"
+        (click)="setActiveItem('time')"
+      >
+        <i class="bx bxs-time-five"></i>
+        <span class="text">Tiempo Entrega Auditoría</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="side-menu">
+    <li *ngIf="!Islogged">
+      <a routerLink="/login" pathMatch="relative">
+        <i class="bx bxs-group"></i>
+        <span class="text">Autenticate</span>
+      </a>
+    </li>
+    <li *ngIf="Islogged">
+      <a
+        (click)="onClickLogut()"
+        routerLink="/login"
+        pathMatch="relative"
+        class="logout"
+      >
+        <i class="bx bxs-log-out-circle"></i>
+        <span class="text">Cerrar Sesión</span>
+      </a>
+    </li>
+  </ul>
+</section>
+<section id="content" *ngIf="Islogged">
+  <nav>
+    <i class="bx bx-menu" (click)="toggleSidebar()"></i>
+    <div class="switch">
+      <input
+        type="checkbox"
+        id="switch-mode"
+        hidden
+        (click)="toggleDarkMode()"
+      />
+      <label for="switch-mode" class="switch-mode"></label>
+    </div>
+  </nav>
+  <main *ngIf="Islogged">
+    <div class="head-title" (click)="mostrarPanel()">
+      <div class="left">
+        <h1>Panel de Navegación</h1>
+      </div>
+    </div>
+    <ul class="box-info" *ngIf="flagPanel">
+      <li>
+        <i class="bx bxs-time-five"></i>
+        <span class="text">
+          <h3>{{ time }} min</h3>
+          <p>Tiempo Restante</p>
+        </span>
+      </li>
+      <li>
+        <i class="bx bxs-group"></i>
+        <span class="text">
+          <h3>{{ user.userNombre | capitalize }}</h3>
+          <p>Usuario</p>
+        </span>
+      </li>
+      <li>
+        <i class="bx bxs-user-account"></i>
+        <span class="text">
+          <h3>{{ user.areaTrabajo }}</h3>
+          <p>Área de Trabajo</p>
+        </span>
+      </li>
+    </ul>
+  </main>
+</section>

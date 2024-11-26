@@ -1,0 +1,92 @@
+nav {
+  margin-bottom: 2.2em;
+  background-color: black;
+}
+
+.navbar {
+  margin-bottom: 300px;
+  background-color: rgb(30, 30, 30);
+}
+
+.tilte {
+  font-size: 1.4em;
+}
+
+.navbar-brand {
+  color: aliceblue;
+}
+
+.navbar-toggler {
+  color: aliceblue;
+  background-color: aliceblue;
+}
+
+.disabled {
+  pointer-events: none; /* Evita que se pueda hacer clic */
+  color: rgb(229, 10, 10); /* Cambia el color para que parezca deshabilitado */
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+:root {
+  --main-color: #22baa0;
+  --color-dark: #34425a;
+  --text-grey: #b0b0b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+  box-sizing: border-box;
+  font-family: "Merriweather", sans-serif;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.offcanvas {
+  background-color: var(--color-dark);
+}
+
+.ico-btn {
+  width: 1.6em;
+}
+
+.logo {
+  width: 6em;
+  margin-top: 2.8em;
+  margin-bottom: 2.4em;
+  filter: brightness(2);
+}
+
+.buttons {
+  display: flex;
+  gap: 1.2em;
+}
+.head-title {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+h1 {
+  text-align: center;
+}
+.left {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.box-info {
+  margin: 2px !important;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.credicard {
+  color: aliceblue;
+  text-shadow: 1px 1px black, -1px -1px rgba(0, 0, 0, 0.26);
+}

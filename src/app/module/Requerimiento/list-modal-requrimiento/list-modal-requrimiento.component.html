@@ -1,0 +1,154 @@
+<div
+  ngClass="modal fade :ismodal"
+  id="ReqModalToggle2"
+  aria-hidden="true"
+  aria-labelledby="exampleModalToggleLabel"
+  tabindex="-9"
+>
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+    <div class="modal-content" *ngIf="requerimiento != null">
+      <div class="modal-header modal-dark">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+
+        <div class="container-title">
+          <h1
+            *ngIf="requerimiento.informe_auditorium"
+            class="modal-title fw-semibold mt-auto fs-4"
+            id="exampleModalToggleLabel"
+          >
+            {{ requerimiento.informe_auditorium.nombre_informe }}
+            <p>
+              <span class="cod2">{{
+                requerimiento.informe_auditorium.cod_informe
+              }}</span>
+            </p>
+          </h1>
+        </div>
+      </div>
+      <div class="modal-body modal-dark" *ngIf="requerimiento != null">
+        <div class="row">
+          <div class="col-md-4 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Auditor Responsable</h4>
+            <p class="text-modal">
+              {{ requerimiento.usuario.nombre }}
+              {{ requerimiento.usuario.apellido }}
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Funcional</h4>
+            <p class="text-modal" *ngIf="requerimiento.apellido_responsable">
+              {{ requerimiento.nombre_responsable }}
+
+              {{ requerimiento.apellido_responsable }}
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Cantidad de Devoluciones</h4>
+            <p class="text-modal">
+              {{ requerimiento.cantidad_devoluciones }}
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Año de Creación</h4>
+            <p class="text-modal">
+              {{ requerimiento.current_year }}
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Estado del Requerimiento</h4>
+            <p class="text-modal">
+              {{
+                requerimiento.estado_requirimiento.nombre_estado_requerimiento
+              }}
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Gerencia Responsable</h4>
+            <p
+              class="text-modal"
+              *ngIf="requerimiento.id_gerencia_encargada == 1"
+            >
+              GAT
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Fecha Solicitud</h4>
+            <p class="text-modal">
+              {{ requerimiento.fecha_solicitud | fechaFormat }}
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Fecha Culminación</h4>
+            <p class="text-modal" *ngIf="requerimiento.fecha_culminacion">
+              {{ requerimiento.fecha_culminacion | fechaFormat }}
+            </p>
+
+            <p class="text-modal" *ngIf="!requerimiento.fecha_culminacion">
+              No Emitida
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-4 form-group">
+            <h4 class="subtitulo-modal2">Fecha Devolución</h4>
+            <p class="text-modal" *ngIf="requerimiento.fecha_devolucion">
+              {{ requerimiento.fecha_devolucion | fechaFormat }}
+            </p>
+          </div>
+        </div>
+
+        <h2 class="modal-title2 mt-2">Requerimiento</h2>
+        <p
+          class="text-modal capitalize"
+          *ngIf="this.requerimiento.detalle_requerimiento"
+        >
+          {{ this.requerimiento.detalle_requerimiento }}
+        </p>
+      </div>
+      <div class="modal-footer modal-dark">
+        <div class="col-md-3 form-group">
+          <h4 class="subtitulo-modal2">Gerencia Responsable</h4>
+          <p class="text-modal capitalize">
+            {{ requerimiento.id_gerencia_responsable.nombre_gerencia }}
+          </p>
+        </div>
+
+        <div class="col-md-3 form-group mb-3">
+          <div>
+            <h4 class="subtitulo-modal2">Vicepresidencia</h4>
+            {{ requerimiento.id_gerencia_responsable.INTRA_VP.nombre_vp }}
+          </div>
+        </div>
+        <div class="col-md-3 form-group mb-3">
+          <h4 class="subtitulo-modal2">Vicepresidencia Ejecutiva</h4>
+          <p class="text-modal capitalize">
+            {{
+              requerimiento.id_gerencia_responsable.INTRA_VP.INTRA_VPE
+                .nombre_vpe
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- id_gerencia_responsable: {
+    id_gerencia: 68,
+    nombre_gerencia: 'GCIA PLANIFICACION FINANCIERA Y COSTOS',
+    id_vp: 29,
+    status: 1,
+    INTRA_VP: {
+      nombre_vp: 'GCIA PLANIFICACION FINANCIERA Y COSTOS',
+      INTRA_VPE: {
+        id_vpe: 6,
+        nombre_vpe: 'VPE PLANIFICACION Y CONTROL DE GESTION'
+      } -->

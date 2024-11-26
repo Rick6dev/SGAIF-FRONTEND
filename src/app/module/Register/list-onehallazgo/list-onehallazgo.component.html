@@ -1,0 +1,216 @@
+<div class="container-hllz">
+  <main id="content4" *ngIf="flagNodata" (click)="closehllz()">
+    <app-message [message]="messages"></app-message>
+  </main>
+
+  <main id="content2" class="main" *ngIf="!flagNodata">
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Hallazgos Reportados</h3>
+          <div class="buttons">
+            <button class="btn" (click)="closehllz()">
+              <img
+                class="ico-btn"
+                src="../../../../assets/img/icon/ico-salir.png"
+                alt=""
+              />
+            </button>
+            <button class="btn" (click)="openPdf()">
+              <img
+                class="ico-btn"
+                src="../../../../assets/img/icon/ico-pdf.png"
+                alt=""
+              />
+            </button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Código Informe</th>
+              <th>Auditor</th>
+              <th>Fecha Detección</th>
+              <th>Nivel de Riesgo</th>
+
+              <th>Estatus</th>
+              <!-- <th>Gerencia</th> -->
+              <th scope="col ">
+                <p>Opciones</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let result of resultshllz">
+              <th scope="row" class="cod">
+                {{ result.informe_auditorium.cod_informe }}
+              </th>
+              <td class="capitalize">
+                {{ result.usuario.nombre | capitalize }}
+                {{ result.usuario.apellido | capitalize }}
+              </td>
+              <td>{{ result.fecha_creacion | fechaFormat }}</td>
+
+              <td>{{ result.nivel_riesgo.nombre_nivel_riesgo }}</td>
+              <td>{{ result.estatus_Plan_Accion }}</td>
+              <!-- <td class="grc capitalize">{{result.id_gerencia.nombre_gerencia | capitalize }}</td> -->
+              <td>
+                <div class="d-flex justify-content-center align-items-center">
+                  <div
+                    class="wrapper"
+                    (click)="seguimiento(result.id_hallazgo)"
+                  >
+                    <input
+                      type="checkbox"
+                      class="hidden-trigger"
+                      id="{{ result.id_hallazgo }}"
+                      [ngClass]="{
+                        checked: checkedItem === result.id_hallazgo
+                      }"
+                      class="hidden-trigger"
+                      (click)="setActiveItem(result.id_hallazgo)"
+                    />
+                    <label
+                      for="{{ result.id_hallazgo }}"
+                      class="circle"
+                      [ngClass]="{
+                        approved: result.aprobado
+                      }"
+                    >
+                      <svg
+                        class="svg"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="48"
+                        height="48"
+                        xml:space="preserve"
+                        version="1.1"
+                        viewBox="0 0 48 48"
+                      >
+                        <image
+                          width="48"
+                          height="48"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC"
+                        ></image>
+                      </svg>
+                    </label>
+                    <div class="subs">
+                      <button
+                        data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal"
+                        class="btn sub-circle"
+                      >
+                        <img
+                          class="ico-btn"
+                          src="./assets/img/icon/ico-info.png"
+                          alt=""
+                        />
+                        <div class="info">Detalle</div>
+                      </button>
+                      <button
+                        class="btn sub-circle"
+                        for="sub3"
+                        data-bs-target="#example9"
+                        data-bs-toggle="modal"
+                        (click)="seguimiento(result.id_hallazgo)"
+                        *ngIf="
+                          result.estatus_Plan_Accion !== 'Cerrado' &&
+                          (edit == result.id_gerencia_encargada ||
+                            user.role == 1)
+                        "
+                      >
+                        <img
+                          class=" "
+                          src="./assets/img/icon/ico-segu.png"
+                          alt=""
+                        />
+                        <div class="info">Seguimiento</div>
+                      </button>
+                      <button
+                        class="btn sub-circle"
+                        *ngIf="
+                          result.estatus_Plan_Accion !== 'Cerrado' &&
+                          ((edit == result.id_gerencia_encargada &&
+                            user.role == 2) ||
+                            user.role == 1)
+                        "
+                        (click)="
+                          aprobarHallazgo(result.id_hallazgo, result.aprobado)
+                        "
+                      >
+                        <img
+                          *ngIf="!result.aprobado"
+                          class=""
+                          src="./assets/img/icon\ico-aprobado.png"
+                          alt=""
+                        />
+                        <div *ngIf="!result.aprobado" class="info">Aprobar</div>
+                        <img
+                          *ngIf="result.aprobado"
+                          class="ico-btn"
+                          src="./assets/img/icon/ico-pend.png"
+                          alt=""
+                        />
+                        <div *ngIf="result.aprobado" class="info">
+                          Desaprobar
+                        </div>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn sub-circle"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        *ngIf="
+                          result.estatus_Plan_Accion !== 'Cerrado' &&
+                          user.role == 1
+                        "
+                        (click)="extraerHallazgo(result.id_hallazgo)"
+                      >
+                        <img
+                          class="ico-btn"
+                          src="./assets/img/icon/ico-eliminar.png"
+                          alt=""
+                        />
+                        <div class="info">Eliminar</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <button
+              class="btn"
+              (click)="closehllz()"
+              *ngIf="resultshllz.length > 7"
+            >
+              <img
+                class="ico-btn"
+                src="../../../../assets/img/icon/ico-salir.png"
+                alt=""
+              />
+            </button>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<app-form-comentarios
+  (click)="actualizarElemento()"
+  [hllz]="hllz"
+  [ismodal]="true"
+></app-form-comentarios>
+
+<app-list-modalhllz
+  [informe_audit]="informe_audit"
+  [coments]="coments"
+  [hllz]="hllz"
+></app-list-modalhllz>
+<app-generar-reporte
+  *ngIf="flagPdf"
+  [(flagReporte)]="flagPdf"
+  [name]="name"
+  [results]="resultshllz"
+></app-generar-reporte>

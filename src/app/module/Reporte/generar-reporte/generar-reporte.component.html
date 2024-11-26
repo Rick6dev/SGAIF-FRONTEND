@@ -1,0 +1,229 @@
+<div class="container-card">
+  <div class="card">
+    <p class="cookieHeading">Reporte Generado</p>
+    <p class="cookieDescription">
+      Usuario el reporte fue generado correctamente
+    </p>
+    <div class="buttonContainer">
+      <button class="acceptButton pdf" (click)="generarPdf()">Pdf</button>
+      <button class="acceptButton excel" (click)="generarExcel()">Excel</button>
+      <button class="declineButton" type="button" (click)="ocultar()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+<div class="content" #content>
+  <div *ngFor="let hallazgo of results" class="page">
+    <div class="header">
+      <img src="../assets/img/report/header.png" alt="" />
+    </div>
+
+    <div class="body container">
+      <h2>{{ hallazgo.informe_auditorium.nombre_informe }}</h2>
+      <p class="cod">{{ hallazgo.informe_auditorium.cod_informe }}</p>
+      <div class="row">
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Auditor Responsable</p>
+          <p class="text-modal" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+            {{ hallazgo.usuario.nombre }} {{ hallazgo.usuario.apellido }}
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Trimestre</p>
+          <p class="text-modal" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+            {{ hallazgo.informe_auditorium.trimestre }}
+          </p>
+        </div>
+
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Año</p>
+          <p class="text-modal" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+            {{ hallazgo.created_year }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">VPE Responsable</p>
+          <p class="text-modal t-small" *ngIf="hallazgo.created_year > 2023">
+            {{ hallazgo.id_gerencia_historico.INTRA_VP.INTRA_VPE.nombre_vpe }}
+          </p>
+          <p class="text-modal" *ngIf="hallazgo.created_year < 2024">
+            No disponible
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Vp Responsable</p>
+
+          <p class="text-modal t-small" *ngIf="hallazgo.created_year > 2023">
+            {{ hallazgo.id_gerencia_historico.INTRA_VP.nombre_vp }}
+          </p>
+          <p class="text-modal" *ngIf="hallazgo.created_year < 2024">
+            No disponible
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Gerencia Responsable</p>
+          <p class="text-modal t-small">
+            {{ hallazgo.gerencia_responsable_historico.gerencia_historico }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Nivel Riesgo</p>
+          <p class="text-modal" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+            {{ hallazgo.nivel_riesgo.nombre_nivel_riesgo }}
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Estatus Plan Acción</p>
+          <p class="text-modal" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+            {{ hallazgo.estatus_Plan_Accion }}
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Riesgo Asociado</p>
+          <p class="" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+            {{ hallazgo.riesgo_asociado.nombre_riesgo_asociado }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Fecha Creación</p>
+          <p class="text-modal">{{ hallazgo.fecha_creacion | fechaFormat }}</p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Fecha Compromiso</p>
+          <p class="text-modal" *ngIf="hallazgo.fecha_compromiso">
+            {{ hallazgo.fecha_compromiso | fechaNormal : "DD/MM/YYYY" }}
+          </p>
+          <p class="text-modal" *ngIf="!hallazgo.fecha_compromiso">
+            No emitida
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-4 form-group">
+          <p class="subtitulo">Fecha Cierre</p>
+          <p class="text-modal" *ngIf="hallazgo.fecha_cierre">
+            {{ hallazgo.fecha_cierre | fechaFormat }}
+          </p>
+          <p class="text-modal" *ngIf="hallazgo.fecha_cierre == null">
+            No emitida
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11 col-lg-11 form-group">
+          <p class="subtitulo">Hallazgo</p>
+          <p
+            class=""
+            [ngClass]="{ 't-small': hallazgo.hallazgo_reportado.length > 600 }"
+          >
+            {{ hallazgo.hallazgo_reportado }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11 col-lg-11 form-group">
+          <p class="subtitulo">Recomendación</p>
+          <p>{{ hallazgo.recomendacion }}</p>
+          <p class="text-modal" *ngIf="!hallazgo.recomendacion">
+            No fue establecida una Recomendación
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11 col-lg-11 form-group">
+          <p class="subtitulo">Acción Correctiva</p>
+          <p class="text-modal">{{ hallazgo.accion_correctiva }}</p>
+          <p class="text-modal" *ngIf="!hallazgo.accion_correctiva">
+            No fue establecida Acción Correctiva
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <img src="../assets/img/report/footer.png" alt="" />
+    </div>
+  </div>
+</div>
+<table class="table table-bordered" id="tabla" #tabla>
+  <thead>
+    <tr>
+      <th>Nombre Informe</th>
+      <th>codigoInforme</th>
+      <th>Trimestre</th>
+      <th>Auditor Responsable</th>
+      <th>Vicepresidencia Ejecutiva Responsable</th>
+      <th>Vicepresidencia Responsable</th>
+      <th>Gerencia Responsable</th>
+      <th>Nivel de Riesgo</th>
+      <th>Riesgo Asociado</th>
+      <th>Fecha Creación</th>
+      <th>Fecha Compromiso</th>
+      <th>Fecha Cierre</th>
+      <th>Hallazgo</th>
+      <th>Recomendación</th>
+      <th>Acción Correctiva</th>
+      <th>Estatus de Plan de Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hallazgo of results">
+      <td>{{ hallazgo.informe_auditorium.nombre_informe }}</td>
+      <td>{{ hallazgo.informe_auditorium.cod_informe }}</td>
+      <td>{{ hallazgo.informe_auditorium.trimestre }}</td>
+      <td>{{ hallazgo.usuario.nombre }} {{ hallazgo.usuario.apellido }}</td>
+      <td>
+        <p class="text-modal" *ngIf="hallazgo.created_year > 2023">
+          {{ hallazgo.id_gerencia_historico.INTRA_VP.INTRA_VPE.nombre_vpe }}
+        </p>
+        <p class="text-modal" *ngIf="!nameVpe">No disponible</p>
+      </td>
+      <td>
+        <p class="text-modal" *ngIf="hallazgo.created_year > 2023">
+          {{ hallazgo.id_gerencia_historico.INTRA_VP.nombre_vp }}
+        </p>
+        <p class="text-modal" *ngIf="!nameVpe">No disponible</p>
+      </td>
+      <td>{{ hallazgo.gerencia_responsable_historico.gerencia_historico }}</td>
+      <td>{{ hallazgo.nivel_riesgo.nombre_nivel_riesgo }}</td>
+      <td>{{ hallazgo.riesgo_asociado.nombre_riesgo_asociado }}</td>
+      <td>{{ hallazgo.fecha_creacion | fechaNormal : "DD/MM/YYYY" }}</td>
+      <td>
+        <p class="text-modal" *ngIf="hallazgo.fecha_compromiso">
+          {{ hallazgo.fecha_compromiso | fechaNormal : "DD/MM/YYYY" }}
+        </p>
+        <p class="text-modal" *ngIf="!hallazgo.fecha_compromiso">No emitida</p>
+      </td>
+      <td>
+        <p class="text-modal" *ngIf="hallazgo.fecha_cierre">
+          {{ hallazgo.fecha_cierre | fechaNormal : "DD/MM/YYYY" }}
+        </p>
+        <p class="text-modal" *ngIf="hallazgo.fecha_cierre == null">
+          No emitida
+        </p>
+      </td>
+      <td>{{ hallazgo.hallazgo_reportado }}</td>
+      <td>
+        <p class="text-modal">{{ hallazgo.recomendacion }}</p>
+        <p class="text-modal" *ngIf="!hallazgo.recomendacion">
+          No fue establecida una Recomendación
+        </p>
+      </td>
+      <td>
+        <p class="text-modal">{{ hallazgo.accion_correctiva }}</p>
+        <p class="text-modal" *ngIf="!hallazgo.accion_correctiva">
+          No fue establecida Acción Correctiva
+        </p>
+      </td>
+      <td>
+        <p class="text-modal" *ngIf="hallazgo && hallazgo.nivel_riesgo">
+          {{ hallazgo.estatus_Plan_Accion }}
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

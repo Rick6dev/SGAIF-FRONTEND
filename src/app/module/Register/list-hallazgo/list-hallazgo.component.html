@@ -1,0 +1,327 @@
+<main id="content2" *ngIf="!isloading">
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Hallazgos Reportados</h3>
+      </div>
+      <table>
+        <thead>
+          <th scope="col" colspan="12" *ngIf="flagAllHllz">
+            <div class="buscador">
+              <div class="col-md-2 form-group col-btn-icon">
+                <button class="btn btn-icon" (click)="getHallazgoAll()">
+                  <img src="./assets\img\icon\ico_search.png" alt="" />
+                </button>
+              </div>
+              <div class="col-md-3 form-group">
+                <label for="informe" class="form-label"
+                  ><strong>Buscador por Informe de Auditoría</strong></label
+                >
+                <input
+                  id="informe"
+                  class="form-control"
+                  [(ngModel)]="searchTerm.searchInforme"
+                  (keyup)="searchHllz($event)"
+                />
+              </div>
+
+              <div class="col-md-2 form-group" *ngIf="flagAllHllz">
+                <label for="auditor" class="form-label"
+                  ><strong>Buscador por Auditor</strong></label
+                >
+                <input
+                  id="auditor"
+                  class="form-control"
+                  [(ngModel)]="searchTerm.searchAuditor"
+                  (keyup)="searchHllzAuditor($event)"
+                />
+              </div>
+
+              <div class="col-md-2 form-group" *ngIf="flagAllHllz">
+                <label for="year" class="form-label"
+                  ><strong>Buscador por Nivel Riesgo</strong></label
+                >
+                <input
+                  id="year"
+                  class="form-control"
+                  [(ngModel)]="searchTerm.searchNivel"
+                  (keyup)="searchHllzNivel($event)"
+                />
+              </div>
+              <div class="col-md-2 form-group">
+                <label for="year" class="form-label"
+                  ><strong>Año</strong></label
+                >
+                <select
+                  id="year"
+                  name="year"
+                  class="select form-select"
+                  [(ngModel)]="searchTerm.searchYear"
+                  (change)="searchYear()"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <option selected>Todos los hallazgos</option>
+                  <option *ngFor="let year of years">{{ year }}</option>
+                </select>
+              </div>
+            </div>
+          </th>
+        </thead>
+        <thead>
+          <tr>
+            <th scope="col" colspan="8" *ngIf="!flagAllHllz">
+              <div class="row row-center">
+                <div class="col-md-2 form-group col-btn-icon">
+                  <button class="btn btn-icon" (click)="getHallazgoAll()">
+                    <img src="./assets\img\icon\ico_search.png" alt="" />
+                  </button>
+                </div>
+                <div class="col-md-3 form-group">
+                  <label for="status" class="form-label"
+                    ><strong>Estatus Plan de Acción</strong></label
+                  >
+                  <select
+                    id="status"
+                    class="select form-select"
+                    [(ngModel)]="hallazgo.estatus"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="filter_estatus(hallazgo.estatus)"
+                  >
+                    <option *ngFor="let estatu of estatusarry">
+                      {{ estatu }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-2 form-group">
+                  <label for="year" class="form-label"
+                    ><strong>Año</strong></label
+                  >
+                  <select
+                    id="year"
+                    name="year"
+                    class="select form-select"
+                    [(ngModel)]="yearInf"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="change_Year(yearInf)"
+                  >
+                    <option *ngFor="let year of years">{{ year }}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3 form-group">
+                  <label for="area" class="form-label"
+                    ><strong>Área Trabajo</strong></label
+                  >
+                  <select
+                    id="area"
+                    class="select form-select"
+                    [(ngModel)]="hallazgo.areaTrabajo"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="filter_Area(hallazgo.areaTrabajo)"
+                  >
+                    <option *ngFor="let GrcAud of GrcsAud">{{ GrcAud }}</option>
+                  </select>
+                </div>
+                <div class="col-md-1 form-group col-btn-icon">
+                  <button class="btn btn-icon" (click)="resetAll()">
+                    <img src="./assets\img\icon\ico-filter.png" alt="" />
+                  </button>
+                </div>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>Código Informe</th>
+            <th>Auditor</th>
+            <th>Fecha Detección</th>
+            <th>Nivel de Riesgo</th>
+            <th>Estatus</th>
+            <th scope="col ">
+              <p>Opciones</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results">
+            <th scope="row" class="cod">
+              {{ result.informe_auditorium.cod_informe }}
+            </th>
+            <td class="capitalize">
+              {{ result.usuario.nombre | capitalize }}
+              {{ result.usuario.apellido | capitalize }}
+            </td>
+            <td>{{ result.fecha_creacion | fechaFormat }}</td>
+
+            <td>{{ result.nivel_riesgo.nombre_nivel_riesgo }}</td>
+            <td>{{ result.estatus_Plan_Accion }}</td>
+            <td>
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="wrapper"
+                  (click)="setActiveItem(result.id_hallazgo)"
+                >
+                  <input
+                    type="checkbox"
+                    class="hidden-trigger"
+                    id="{{ result.id_hallazgo }}"
+                    [ngClass]="{ checked: checkedItem === result.id_hallazgo }"
+                    class="hidden-trigger"
+                    (click)="setActiveItem(result.id_hallazgo)"
+                  />
+                  <label
+                    for="{{ result.id_hallazgo }}"
+                    class="circle"
+                    [ngClass]="{
+                      approved: result.aprobado,
+                      default: !result.aprobado
+                    }"
+                  >
+                    <svg
+                      class="svg"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="48"
+                      height="48"
+                      xml:space="preserve"
+                      version="1.1"
+                      viewBox="0 0 48 48"
+                    >
+                      <image
+                        width="48"
+                        height="48"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC"
+                      ></image>
+                    </svg>
+                  </label>
+                  <div class="subs">
+                    <button
+                      data-bs-target="#exampleModalToggle2"
+                      data-bs-toggle="modal"
+                      class="btn sub-circle"
+                      (click)="seguimiento(result.id_hallazgo)"
+                    >
+                      <img
+                        class="ico-btn"
+                        src="./assets/img/icon/ico-info.png"
+                        alt=""
+                      />
+                      <div class="info">Detalle</div>
+                    </button>
+                    <button
+                      class="btn sub-circle"
+                      for="sub3"
+                      data-bs-target="#example9"
+                      data-bs-toggle="modal"
+                      (click)="seguimiento(result.id_hallazgo)"
+                      *ngIf="
+                        result.estatus_Plan_Accion !== 'Cerrado' &&
+                        (edit == result.id_gerencia_encargada || user.role == 1)
+                      "
+                    >
+                      <img
+                        class=" "
+                        src="./assets/img/icon/ico-segu.png"
+                        alt=""
+                      />
+                      <div class="info">Seguimiento</div>
+                    </button>
+                    <button
+                      class="btn sub-circle"
+                      *ngIf="
+                        result.estatus_Plan_Accion !== 'Cerrado' &&
+                        ((edit == result.id_gerencia_encargada &&
+                          user.role == 2) ||
+                          user.role == 1)
+                      "
+                      (click)="
+                        aprobarHallazgo(result.id_hallazgo, result.aprobado)
+                      "
+                    >
+                      <img
+                        *ngIf="!result.aprobado"
+                        class=""
+                        src="./assets/img/icon\ico-aprobado.png"
+                        alt=""
+                      />
+                      <div *ngIf="!result.aprobado" class="info">Aprobar</div>
+                      <img
+                        *ngIf="result.aprobado"
+                        class="ico-btn"
+                        src="./assets/img/icon/ico-pend.png"
+                        alt=""
+                      />
+                      <div *ngIf="result.aprobado" class="info">Desaprobar</div>
+                    </button>
+
+                    <button
+                      class="btn sub-circle"
+                      *ngIf="
+                        result.estatus_Plan_Accion == 'Cerrado' &&
+                        user.role == 1
+                      "
+                      (click)="aperturarHallazgo(result.id_hallazgo, '99%')"
+                    >
+                      <img class="" src="./assets/img/icon\ico-99.png" alt="" />
+                      <div class="info">Aperturar</div>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn sub-circle"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      *ngIf="
+                        result.estatus_Plan_Accion !== 'Cerrado' &&
+                        user.role == 1
+                      "
+                      (click)="extraerHallazgo(result.id_hallazgo)"
+                    >
+                      <img
+                        class="ico-btn"
+                        src="./assets/img/icon/ico-eliminar.png"
+                        alt=""
+                      />
+                      <div class="info">Eliminar</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <ul class="pagination">
+          <li class="list" *ngFor="let pages of nrmPaginas">
+            <button
+              class="pushable"
+              (click)="actualizarPagina(pages + 1)"
+              *ngIf="pagina !== pages + 1"
+            >
+              <span class="shadow"></span>
+              <span class="edge"></span>
+              <span class="front">
+                {{ pages + 1 }}
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<app-form-comentarios
+  (click)="actualizarElemento()"
+  [hllz]="hllz"
+  (change)="getData()"
+></app-form-comentarios>
+<app-loader *ngIf="isloading"></app-loader>
+<app-list-modalhllz [coments]="coments" [hllz]="hllz"></app-list-modalhllz>
+<app-modal-borrar
+  [pagina]="pagina"
+  [yearInf]="yearInf"
+  (click)="actualizarElemento()"
+  [id_element]="id_hallazgo"
+  [isHllz]="isHllz"
+  [results]="results"
+  (datosEliminados)="results = $event"
+></app-modal-borrar>

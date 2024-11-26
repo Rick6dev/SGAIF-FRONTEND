@@ -1,0 +1,29 @@
+<table>
+    <thead>
+    <tr >
+    </tr>
+    <tr>
+        <th>Año</th>
+        <th >Hallazgo Abiertos</th>
+        <th>Gerencia Encargada</th>
+    </tr>
+    </thead>
+    <tbody >
+    
+
+
+    <tr *ngFor ="let abierto of abiertos">
+        <td scope="row" class="cod"> {{abierto.created_year}}
+        </td>
+        <td >
+            {{abierto.total_abiertos }}
+        </td>
+        <td>
+            <p *ngIf="abierto.id_gerencia_encargada==2">GAOF</p>
+            <p *ngIf="abierto.id_gerencia_encargada==1">GAT</p>
+
+        </td> 
+
+    </tr>
+    </tbody>
+</table>

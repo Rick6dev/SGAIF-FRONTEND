@@ -1,0 +1,73 @@
+<div class="container-box" [@trigger]="estado">
+  <div class="box-background" [@trigger]="estado">
+    <div class="container-welcome" [@trigger]="estado">
+      <h1 class="title">Bienvenido Usuario!</h1>
+      <p class="message message-system">Sistema de Gestión de Auditoría</p>
+      <p class="message">Por favor,Registrate para continuar!</p>
+    </div>
+  </div>
+
+  <div class="box-form" [@trigger]="estado">
+    <form
+      [formGroup]="forma"
+      (ngSubmit)="validarUsuario()"
+      name="contactForm"
+      [@text-apparence]="estado"
+      class="form-login"
+    >
+      <div class="cointainer-img">
+        <img src="./assets/img/logo.png" class="logos" alt="" />
+      </div>
+      <h4 class="title-eslogan">En cada momento de tu vida!</h4>
+
+      <h2 class="login-title">Ingresa tus datos</h2>
+      <div class="container-login">
+        <input
+          type="email"
+          formControlName="username"
+          class="form-control"
+          placeholder="Ingresa tu Usuario Corporativo"
+          [class.is-invalid]="nombreNoValido"
+          [class.is-valid]="nombreValido"
+        />
+        <small class="text-danger" *ngIf="nombreNoValido"
+          >El Usuario debe ser válido</small
+        >
+        <div
+          class="password form-control container-password"
+          [class.is-invalid]="passwordNoValido"
+          [class.is-valid]="passwordValido"
+        >
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            placeholder="Ingresa tu Contraseña Corporativa"
+            #passwordInput
+          />
+          <button type="button" class="btn-eye" (click)="togglePasswordType()">
+            <img
+              class="ico-btn"
+              src="./assets/img/icon/icon-eyeclose.png"
+              alt=""
+              *ngIf="!isPasswordVisible"
+            />
+            <img
+              class="ico-btn"
+              src="./assets/img/icon/icon-eye1.png"
+              width="50px"
+              alt=""
+              *ngIf="isPasswordVisible"
+            />
+          </button>
+        </div>
+        <span class="text-danger" *ngIf="passwordNoValido"
+          >La contraseña debe ser válida</span
+        >
+      </div>
+
+      <button class="btn-login">Ingresar</button>
+    </form>
+  </div>
+</div>

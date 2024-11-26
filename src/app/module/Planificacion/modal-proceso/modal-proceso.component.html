@@ -1,0 +1,75 @@
+
+
+
+<div class="modal fade " id="modal-proceso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" >
+        <div class="modal-header">
+         
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form"  method="post" id="FormTipoAuditoria" name="FormTipoAuditoria" >
+            <div class="header header-create">Crear un Proceso</div>
+            <div class="inputs">
+                <form class="" method="post" id="contactForm" [formGroup]="forma" name="contactForm" (ngSubmit)="guardarProceso()" [formGroup]="forma">
+                   
+                    
+                    <div class="row">
+                     
+                      <div class="col-md-6   col-sm-10 form-group mb-3" >
+                        <label for="macroproceso" class="form-label" ><strong>Macroproceso</strong></label>
+                        <select id="macroproceso" class="form-select form-modal" formControlName="id_macroproceso"     [class.is-invalid]="macroprocesoNoValido"
+                        [class.is-valid]="macroprocesoValido"  >
+                          <option  class="mb-2"  *ngFor="let macroproceso of macroprocesos" value="{{macroproceso.id_macroproceso}}"  >  {{macroproceso.nombre_macroproceso}}</option>
+                        </select>
+                      </div>
+
+
+                      <div class="col-md-6    col-sm-10 form-group mb-3" >
+                        <label for="tipoproceso" class="form-label" ><strong>Tipo Proceso</strong></label>
+                        <select id="tipoproceso" class="form-select form-modal" formControlName="id_tipo_proceso"     [class.is-invalid]="TipoProcesoNoValido"
+                        [class.is-valid]="TipoProcesoValido"  >
+                          <option  class="mb-2"  *ngFor="let tipoproceso of tipoProcesos" value="{{tipoproceso.id_tipo_proceso}}"  >  {{tipoproceso.nombre_tipo_proceso}}</option>
+                        </select>
+                      </div>
+
+
+
+                      <div class="  form-group mb-3 col-12" *ngIf="macroprocesoValido &&TipoProcesoValido">
+                        <label for="macroproceso"><strong>Nombre del Proceso </strong></label>
+
+                        <div class="input-container"  >
+                            <input type="text" value="" placeholder="Ingresa del Macroproceso" name="macroproceso" formControlName="proceso" autofocus class="form-control form-modal" id="macroproceso"
+                            [class.is-invalid]="procesoNoValido"
+                            [class.is-valid]="procesoValido">
+                      <small class="text-danger" *ngIf="macroprocesoNoValido" >El Macroproceso debe tener un titulo coherente</small> 
+                        
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-md-6 form-group mb-4"   >
+                          <button   data-bs-dismiss="modal"  *ngIf="procesoValido"  class="submit submit-create  relative rounded px-5 py-2.5 overflow-hidden group bg-red-500  text-white hover:ring-2 hover:ring-offset-2 hover:ring-blue-400 transition-all ease-out duration-300" >
+                            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                            <span class="relative text-button">Agregar </span>
+                          </button>
+                        </div>
+          
+                    
+                      </div>
+                </form>
+
+
+
+                
+
+     
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>

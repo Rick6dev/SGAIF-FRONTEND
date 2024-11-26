@@ -1,0 +1,401 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #fff;
+  line-height: 1.9;
+  color: #8c8c8c;
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Roboto", sans-serif;
+  color: #000;
+}
+
+a {
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+a,
+a:hover {
+  text-decoration: none !important;
+}
+
+.text-black {
+  color: #000;
+}
+
+.content {
+  padding: 0 0;
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.form-control {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 0;
+  background: none;
+}
+.form-control:active,
+.form-control:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: #000;
+}
+
+.col-form-label {
+  color: #000;
+  font-size: 13px;
+}
+
+.btn,
+.form-control,
+.custom-select {
+  height: 45px;
+  border-radius: 0;
+}
+
+.custom-select {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 0;
+}
+.custom-select:active,
+.custom-select:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: #000;
+}
+
+.btn {
+  border: none;
+  border-radius: 0;
+  font-size: 11px;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  border-radius: 30px !important;
+}
+.btn.btn-primary {
+  border-radius: 30px;
+  background: #ef4339;
+  color: #fff;
+  -webkit-box-shadow: 0 15px 30px 0 rgba(239, 67, 57, 0.2);
+  box-shadow: 0 15px 30px 0 rgba(239, 67, 57, 0.2);
+}
+.btn:hover {
+  color: #fff;
+}
+.btn:active,
+.btn:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.contact-wrap {
+  -webkit-box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #efefef;
+}
+.contact-wrap .col-form-label {
+  font-size: 14px;
+  color: #b3b3b3;
+  margin: 0 0 10px 0;
+  display: inline-block;
+  padding: 0;
+}
+.contact-wrap .form,
+.contact-wrap .contact-info {
+  padding: 40px;
+}
+.contact-wrap .contact-info {
+  color: rgba(255, 255, 255, 0.5);
+}
+.contact-wrap .contact-info ul li {
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.contact-wrap .contact-info ul li .wrap-icon {
+  font-size: 20px;
+  color: #fff;
+  margin-top: 5px;
+}
+.contact-wrap .form {
+  background: #fff;
+}
+.contact-wrap .form h3 {
+  color: #000;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.contact-wrap .contact-info {
+  height: 100vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.contact-wrap .contact-info a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+@media (max-width: 1199.98px) {
+  .contact-wrap .contact-info {
+    height: 400px !important;
+  }
+}
+.contact-wrap .contact-info h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+label.error {
+  font-size: 12px;
+  color: red;
+}
+
+#message {
+  resize: vertical;
+}
+
+#form-message-warning,
+#form-message-success {
+  display: none;
+}
+
+#form-message-warning {
+  color: #b90b0b;
+}
+
+#form-message-success {
+  color: #55a44e;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.submitting {
+  float: left;
+  width: 100%;
+  padding: 10px 0;
+  display: none;
+  font-weight: bold;
+  font-size: 12px;
+  color: #000;
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.icon {
+  display: inline-block;
+  width: 2.5em;
+  height: 2.5em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+.icon-lg {
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.btn-curso {
+  background-color: rgb(226, 90, 40);
+  color: #ffffff;
+  font-weight: bold;
+}
+.btn-curso:hover {
+  background-color: rgb(171, 98, 29);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.btn-matricula {
+  background-color: rgb(70, 251, 251);
+  color: #000000;
+  font-weight: bold;
+}
+.btn-matricula:hover {
+  background-color: rgb(74, 194, 198);
+  color: #000000;
+  font-weight: bold;
+}
+
+.btn-teacher {
+  background-color: rgb(40, 136, 226);
+  color: #ffffff;
+  font-weight: bold;
+}
+.btn-teacher:hover {
+  background-color: rgb(17, 90, 119);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.btn-specialtys:hover {
+  background-color: rgb(183, 187, 50);
+  color: #000000;
+  font-weight: bold;
+}
+
+.btn-specialtys {
+  background-color: rgb(227, 234, 27);
+  color: #000000;
+  font-weight: bold;
+}
+
+.btn-icon {
+  background-color: rgb(98, 95, 160);
+  color: #ffffff;
+  font-weight: bold;
+}
+.btn-icon:hover {
+  background-color: rgb(60, 56, 127);
+  color: #ffffff;
+  font-weight: bold;
+}
+body {
+  background-color: aliceblue;
+}
+
+.subtitulo {
+  margin-top: 0.5em;
+  font-size: 3.5em;
+  font-weight: bold;
+  text-align: center;
+  font-family: "italic";
+  color: aliceblue;
+  padding: 0;
+}
+.logo {
+  width: 80px;
+  height: 50px;
+}
+.caja {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparente {
+  background-color: transparent;
+  border: none;
+}
+.form-label {
+  color: aliceblue;
+  font-size: 1.4em !important;
+  padding-top: 1px;
+}
+.btn {
+  align-items: center;
+}
+
+.nav-link {
+  color: aliceblue;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: all ease-in;
+}
+.nav-link:hover {
+  color: aqua;
+  font-size: 1.23em;
+}
+.nav-link:target {
+  color: aqua;
+  font-size: 1.23em;
+}
+.navbar {
+  background-color: #0e0b16;
+  box-shadow: 2px 2px 5px #0e0b16;
+}
+.salir {
+  color: rgb(248, 21, 21);
+}
+.salir:hover {
+  color: rgba(250, 1, 1, 0.911);
+}
+
+.btn-color:hover {
+  background-color: mediumslateblue;
+}
+.btn-color {
+  background-color: mediumslateblue;
+}
+
+.letra {
+  font-size: smaller;
+}
+
+.subtituloblack {
+  color: #00293c;
+  font-size: 3em;
+}
+.subtituloblack2 {
+  color: #00293c;
+  font-size: 3em;
+}
+.reporte td,
+.reporte th {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.reporte th {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+text-button {
+  color: #000;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ico-btn {
+  width: 5em;
+}
+
+.form-select {
+  padding: 5px 1px;
+}
+
+.content {
+  margin-top: 300px;
+}
+
+.btn-ico {
+  width: 50px;
+}

@@ -1,0 +1,103 @@
+.centro {
+  display: flex;
+
+  padding-left: 0.4em;
+}
+.container-drop {
+  padding: 0.2em;
+  gap: 0.3em;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  min-height: 600px;
+  width: 27%;
+  margin: 0 auto;
+  background-color: #f8fbfe;
+  box-shadow: #000 1px 1px 4px;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .container-drop {
+    width: 37%;
+  }
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  padding: 9px;
+  background-color: transparent !important;
+  gap: 1em;
+}
+
+.circle {
+  padding: 0 4px;
+  background-color: transparent !important;
+}
+
+.box {
+  display: inline-block;
+  align-items: center;
+  width: 14px;
+  height: 14px;
+  padding: 1px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #ff605c;
+}
+.blue {
+  background-color: #5c6aff;
+}
+.yellow {
+  background-color: #ffbd44;
+}
+
+.green {
+  background-color: #00ca4e;
+}
+
+.second-text3 {
+  font-size: 5em;
+  text-shadow: #000 1px 1px;
+}
+
+.container-drop {
+  margin-top: 4em;
+}
+
+@media (max-width: 768px) {
+  .title-drop {
+    width: 10em;
+  }
+
+  .container-drop {
+    padding: 0.2em;
+    gap: 0em;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 200px;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f8fbfe;
+    box-shadow: #000 1px 1px 4px;
+    border-radius: 8px;
+    z-index: 1;
+  }
+  .cards {
+    gap: 1em;
+    display: flex;
+    flex-direction: row; /* Cambia a fila en pantallas más anchas */
+    justify-content: space-between; /* Ajusta el espacio entre los elementos */
+  }
+  .card {
+    margin: 0.2em;
+  }
+}

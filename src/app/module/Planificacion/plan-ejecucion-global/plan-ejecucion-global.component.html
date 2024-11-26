@@ -1,0 +1,7 @@
+<app-loader *ngIf="isLoading"></app-loader>
+
+<app-plan-ejecucion-vp *ngIf="flagVp"></app-plan-ejecucion-vp>
+<app-plan-ejecucion-gerente *ngIf="flagGerente"></app-plan-ejecucion-gerente>
+<app-planificacion-ejecucion
+  *ngIf="flagAuditor || flagDev"
+></app-planificacion-ejecucion>
